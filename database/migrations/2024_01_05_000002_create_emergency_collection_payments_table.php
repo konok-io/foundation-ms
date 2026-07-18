@@ -31,7 +31,7 @@ return new class extends Migration
             
             $table->timestamps();
 
-            $table->unique(['emergency_collection_id', 'member_id']);
+            $table->unique(['emergency_collection_id', 'member_id'], 'emergency_payments_unique');
             $table->index('status');
         });
     }
