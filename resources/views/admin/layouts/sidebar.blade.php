@@ -108,6 +108,15 @@
             </li>
             @endcan
             
+            @can('members.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.members.index') }}" class="nav-link {{ request()->routeIs('admin.members.*') ? 'active' : '' }}">
+                    <i class="bi bi-people"></i>
+                    <span>Members</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('events.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">

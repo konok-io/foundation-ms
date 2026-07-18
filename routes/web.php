@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CmsController;
+use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
@@ -112,5 +113,31 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::put('/cms/{cms}', [CmsController::class, 'update'])->name('cms.update');
         Route::delete('/cms/{cms}', [CmsController::class, 'destroy'])->name('cms.destroy');
         Route::post('/cms/{cms}/quick-edit', [CmsController::class, 'quickEdit'])->name('cms.quick-edit');
+    });
+
+    // Member Management
+    Route::middleware('permission:members.view')->group(function () {
+        Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+        Route::get('/members/{member}', [MemberController::class, 'show'])->name('members.show');
+        Route::get('/members/{member}/card', [MemberController::class, 'card'])->name('members.card');
+        Route::get('/members/{member}/qr', [MemberController::class, 'qrCode'])->name('members.qr');
+    });
+
+    Route::middleware('permission:members.create')->group(function () {
+        Route::get('/members/create', [MemberController::class, 'create'])->name('members.create');
+        Route::post('/members', [MemberController::class, 'store'])->name('members.store');
+    });
+
+    Route::middleware('permission:members.edit')->group(function () {
+        Route::get('/members/{member}/edit', [MemberController::class, 'edit'])->name('members.edit');
+        Route::put('/members/{member}', [MemberController::class, 'update'])->name('members.update');
+    });
+
+    Route::middleware('permission:members.delete')->group(function () {
+        Route::delete('/members/{member}', [MemberController::class, 'destroy'])->name('members.destroy');
+    });
+
+    Route::middleware('permission:members.export')->group(function () {
+        Route::get('/members/export', [MemberController::class, 'export'])->name('members.export');
     });
 });
