@@ -300,7 +300,7 @@
             
             @can('gallery.manage')
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.gallery.index') }}" class="nav-link {{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">
                     <i class="bi bi-images"></i>
                     <span>Gallery</span>
                 </a>

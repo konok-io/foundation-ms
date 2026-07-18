@@ -30,6 +30,10 @@ Route::post('/events/{event}/register', [App\Http\Controllers\Admin\EventControl
 // Public Notices
 Route::get('/notices', [App\Http\Controllers\Admin\NoticeController::class, 'publicIndex'])->name('public.notices.index');
 
+// Public Gallery
+Route::get('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'publicIndex'])->name('public.gallery.index');
+Route::get('/gallery/{album}', [App\Http\Controllers\Admin\GalleryController::class, 'publicShow'])->name('public.gallery.show');
+
 // Language Switch
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'bn'])) {
@@ -413,6 +417,22 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     });
     Route::middleware('permission:documents.delete')->group(function () {
         Route::delete('/documents/{document}', [App\Http\Controllers\Admin\DocumentController::class, 'destroy'])->name('documents.destroy');
+    });
+
+    // Gallery
+    Route::middleware('permission:gallery.manage')->group(function () {
+        Route::get('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index'])->name('gallery.index');
+        Route::get('/gallery/create', [App\Http\Controllers\Admin\GalleryController::class, 'create'])->name('gallery.create');
+        Route::post('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'store'])->name('gallery.store');
+        Route::get('/gallery/{album}', [App\Http\Controllers\Admin\GalleryController::class, 'show'])->name('gallery.show');
+        Route::get('/gallery/{album}/edit', [App\Http\Controllers\Admin\GalleryController::class, 'edit'])->name('gallery.edit');
+        Route::put('/gallery/{album}', [App\Http\Controllers\Admin\GalleryController::class, 'update'])->name('gallery.update');
+        Route::delete('/gallery/{album}', [App\Http\Controllers\Admin\GalleryController::class, 'destroy'])->name('gallery.destroy');
+        Route::get('/gallery/{album}/toggle', [App\Http\Controllers\Admin\GalleryController::class, 'toggleStatus'])->name('gallery.toggle');
+        Route::post('/gallery/{album}/upload', [App\Http\Controllers\Admin\GalleryController::class, 'uploadImages'])->name('gallery.upload');
+        Route::post('/gallery/{album}/video', [App\Http\Controllers\Admin\GalleryController::class, 'addVideo'])->name('gallery.add-video');
+        Route::delete('/gallery/images/{image}', [App\Http\Controllers\Admin\GalleryController::class, 'deleteImage'])->name('gallery.delete-image');
+        Route::get('/gallery/images/{image}/featured', [App\Http\Controllers\Admin\GalleryController::class, 'toggleFeatured'])->name('gallery.toggle-featured');
     });
 });
 
