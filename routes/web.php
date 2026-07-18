@@ -250,6 +250,84 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:donations.export')->group(function () {
         Route::get('/donations/export', [App\Http\Controllers\Admin\DonationController::class, 'export'])->name('donations.export');
     });
+
+    // Accounting - Income Categories
+    Route::middleware('permission:income_categories.view')->group(function () {
+        Route::get('/accounting/income-categories', [App\Http\Controllers\Admin\IncomeCategoryController::class, 'index'])->name('income-categories.index');
+    });
+    Route::middleware('permission:income_categories.create')->group(function () {
+        Route::post('/accounting/income-categories', [App\Http\Controllers\Admin\IncomeCategoryController::class, 'store'])->name('income-categories.store');
+    });
+    Route::middleware('permission:income_categories.edit')->group(function () {
+        Route::put('/accounting/income-categories/{category}', [App\Http\Controllers\Admin\IncomeCategoryController::class, 'update'])->name('income-categories.update');
+        Route::get('/accounting/income-categories/{category}/toggle', [App\Http\Controllers\Admin\IncomeCategoryController::class, 'toggleStatus'])->name('income-categories.toggle');
+    });
+    Route::middleware('permission:income_categories.delete')->group(function () {
+        Route::delete('/accounting/income-categories/{category}', [App\Http\Controllers\Admin\IncomeCategoryController::class, 'destroy'])->name('income-categories.destroy');
+    });
+
+    // Accounting - Expense Categories
+    Route::middleware('permission:expense_categories.view')->group(function () {
+        Route::get('/accounting/expense-categories', [App\Http\Controllers\Admin\ExpenseCategoryController::class, 'index'])->name('expense-categories.index');
+    });
+    Route::middleware('permission:expense_categories.create')->group(function () {
+        Route::post('/accounting/expense-categories', [App\Http\Controllers\Admin\ExpenseCategoryController::class, 'store'])->name('expense-categories.store');
+    });
+    Route::middleware('permission:expense_categories.edit')->group(function () {
+        Route::put('/accounting/expense-categories/{category}', [App\Http\Controllers\Admin\ExpenseCategoryController::class, 'update'])->name('expense-categories.update');
+        Route::get('/accounting/expense-categories/{category}/toggle', [App\Http\Controllers\Admin\ExpenseCategoryController::class, 'toggleStatus'])->name('expense-categories.toggle');
+    });
+    Route::middleware('permission:expense_categories.delete')->group(function () {
+        Route::delete('/accounting/expense-categories/{category}', [App\Http\Controllers\Admin\ExpenseCategoryController::class, 'destroy'])->name('expense-categories.destroy');
+    });
+
+    // Accounting - Income
+    Route::middleware('permission:incomes.view')->group(function () {
+        Route::get('/accounting/incomes', [App\Http\Controllers\Admin\IncomeController::class, 'index'])->name('incomes.index');
+        Route::get('/accounting/incomes/{income}', [App\Http\Controllers\Admin\IncomeController::class, 'show'])->name('incomes.show');
+    });
+    Route::middleware('permission:incomes.create')->group(function () {
+        Route::get('/accounting/incomes/create', [App\Http\Controllers\Admin\IncomeController::class, 'create'])->name('incomes.create');
+        Route::post('/accounting/incomes', [App\Http\Controllers\Admin\IncomeController::class, 'store'])->name('incomes.store');
+    });
+    Route::middleware('permission:incomes.edit')->group(function () {
+        Route::get('/accounting/incomes/{income}/edit', [App\Http\Controllers\Admin\IncomeController::class, 'edit'])->name('incomes.edit');
+        Route::put('/accounting/incomes/{income}', [App\Http\Controllers\Admin\IncomeController::class, 'update'])->name('incomes.update');
+    });
+    Route::middleware('permission:incomes.delete')->group(function () {
+        Route::delete('/accounting/incomes/{income}', [App\Http\Controllers\Admin\IncomeController::class, 'destroy'])->name('incomes.destroy');
+    });
+
+    // Accounting - Expense
+    Route::middleware('permission:expenses.view')->group(function () {
+        Route::get('/accounting/expenses', [App\Http\Controllers\Admin\ExpenseController::class, 'index'])->name('expenses.index');
+        Route::get('/accounting/expenses/{expense}', [App\Http\Controllers\Admin\ExpenseController::class, 'show'])->name('expenses.show');
+    });
+    Route::middleware('permission:expenses.create')->group(function () {
+        Route::get('/accounting/expenses/create', [App\Http\Controllers\Admin\ExpenseController::class, 'create'])->name('expenses.create');
+        Route::post('/accounting/expenses', [App\Http\Controllers\Admin\ExpenseController::class, 'store'])->name('expenses.store');
+    });
+    Route::middleware('permission:expenses.edit')->group(function () {
+        Route::get('/accounting/expenses/{expense}/edit', [App\Http\Controllers\Admin\ExpenseController::class, 'edit'])->name('expenses.edit');
+        Route::put('/accounting/expenses/{expense}', [App\Http\Controllers\Admin\ExpenseController::class, 'update'])->name('expenses.update');
+    });
+    Route::middleware('permission:expenses.delete')->group(function () {
+        Route::delete('/accounting/expenses/{expense}', [App\Http\Controllers\Admin\ExpenseController::class, 'destroy'])->name('expenses.destroy');
+    });
+
+    // Accounting - Ledger
+    Route::middleware('permission:ledger.view')->group(function () {
+        Route::get('/accounting/ledger', [App\Http\Controllers\Admin\LedgerController::class, 'index'])->name('ledger.index');
+        Route::get('/accounting/ledger/{type}/{id}', [App\Http\Controllers\Admin\LedgerController::class, 'accountLedger'])->name('ledger.account');
+    });
+    Route::middleware('permission:ledger.export')->group(function () {
+        Route::get('/accounting/ledger/export', [App\Http\Controllers\Admin\LedgerController::class, 'export'])->name('ledger.export');
+    });
+
+    // Accounting - Reports
+    Route::middleware('permission:reports.view')->group(function () {
+        Route::get('/accounting/reports/income-statement', [App\Http\Controllers\Admin\LedgerController::class, 'incomeStatement'])->name('reports.income-statement');
+    });
 });
 
 // Member Portal Routes

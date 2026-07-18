@@ -162,6 +162,60 @@
             </li>
             @endcan
             
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#accountingMenu">
+                    <i class="bi bi-calculator"></i>
+                    <span>Accounting</span>
+                    <i class="bi bi-chevron-right ms-auto"></i>
+                </a>
+                <div id="accountingMenu" class="collapse">
+                    <ul class="nav flex-column ms-3">
+                        @can('incomes.view')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.incomes.index') }}" class="nav-link {{ request()->routeIs('admin.incomes.*') ? 'active' : '' }}">
+                                <i class="bi bi-arrow-down-circle"></i> Income
+                            </a>
+                        </li>
+                        @endcan
+                        @can('expenses.view')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.expenses.index') }}" class="nav-link {{ request()->routeIs('admin.expenses.*') ? 'active' : '' }}">
+                                <i class="bi bi-arrow-up-circle"></i> Expense
+                            </a>
+                        </li>
+                        @endcan
+                        @can('income_categories.view')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.income-categories.index') }}" class="nav-link {{ request()->routeIs('admin.income-categories.*') ? 'active' : '' }}">
+                                <i class="bi bi-folder"></i> Income Categories
+                            </a>
+                        </li>
+                        @endcan
+                        @can('expense_categories.view')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.expense-categories.index') }}" class="nav-link {{ request()->routeIs('admin.expense-categories.*') ? 'active' : '' }}">
+                                <i class="bi bi-folder"></i> Expense Categories
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ledger.view')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.ledger.index') }}" class="nav-link {{ request()->routeIs('admin.ledger.*') ? 'active' : '' }}">
+                                <i class="bi bi-book"></i> Cash Book
+                            </a>
+                        </li>
+                        @endcan
+                        @can('reports.view')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.reports.income-statement') }}" class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
+                                <i class="bi bi-graph-up"></i> Reports
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </div>
+            </li>
+            
             @can('events.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">
