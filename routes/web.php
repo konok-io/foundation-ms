@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CmsController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
@@ -8,12 +9,14 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\PageController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('frontend.page');
 
 // Language Switch
 Route::get('/language/{locale}', function ($locale) {
@@ -97,5 +100,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:settings.update')->group(function () {
         Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
         Route::post('/settings/clear-cache', [SettingsController::class, 'clearCache'])->name('settings.clear-cache');
+    });
+
+    // CMS Management
+    Route::middleware('permission:settings.cms')->group(function () {
+        Route::get('/cms', [CmsController::class, 'index'])->name('cms.index');
+        Route::get('/cms/create', [CmsController::class, 'create'])->name('cms.create');
+        Route::post('/cms', [CmsController::class, 'store'])->name('cms.store');
+        Route::get('/cms/{cms}', [CmsController::class, 'show'])->name('cms.show');
+        Route::get('/cms/{cms}/edit', [CmsController::class, 'edit'])->name('cms.edit');
+        Route::put('/cms/{cms}', [CmsController::class, 'update'])->name('cms.update');
+        Route::delete('/cms/{cms}', [CmsController::class, 'destroy'])->name('cms.destroy');
+        Route::post('/cms/{cms}/quick-edit', [CmsController::class, 'quickEdit'])->name('cms.quick-edit');
     });
 });

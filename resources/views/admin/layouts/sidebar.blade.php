@@ -101,7 +101,7 @@
             
             @can('settings.cms')
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.cms.index') }}" class="nav-link {{ request()->routeIs('admin.cms.*') ? 'active' : '' }}">
                     <i class="bi bi-grid"></i>
                     <span>CMS Pages</span>
                 </a>

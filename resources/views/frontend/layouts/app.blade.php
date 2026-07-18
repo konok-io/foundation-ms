@@ -46,8 +46,14 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">About Us</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('about') }}">About</a></li>
+                            <li><a class="dropdown-item" href="{{ route('frontend.page', 'mission-vision') }}">Mission & Vision</a></li>
+                            <li><a class="dropdown-item" href="{{ route('frontend.page', 'history') }}">Our History</a></li>
+                            <li><a class="dropdown-item" href="{{ route('frontend.page', 'chairman-message') }}">Chairman Message</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
