@@ -135,6 +135,15 @@
             </li>
             @endcan
             
+            @can('payments.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.payments.index') }}" class="nav-link {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}">
+                    <i class="bi bi-credit-card"></i>
+                    <span>Payments</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('events.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">

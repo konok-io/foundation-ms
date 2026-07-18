@@ -188,6 +188,24 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:emergency_collections.delete')->group(function () {
         Route::delete('/emergency-collections/{emergencyCollection}', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'destroy'])->name('emergency-collections.destroy');
     });
+
+    // Payment Management
+    Route::middleware('permission:payments.view')->group(function () {
+        Route::get('/payments', [App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('payments.index');
+        Route::get('/payments/{payment}', [App\Http\Controllers\Admin\PaymentController::class, 'show'])->name('payments.show');
+    });
+
+    Route::middleware('permission:payments.refund')->group(function () {
+        Route::post('/payments/{payment}/refund', [App\Http\Controllers\Admin\PaymentController::class, 'refund'])->name('payments.refund');
+    });
+
+    Route::middleware('permission:payments.export')->group(function () {
+        Route::get('/payments/export', [App\Http\Controllers\Admin\PaymentController::class, 'export'])->name('payments.export');
+    });
+
+    // Payment Webhooks
+    Route::post('/webhooks/stripe', [App\Http\Controllers\Admin\PaymentController::class, 'webhookStripe'])->name('webhooks.stripe');
+    Route::post('/webhooks/paypal', [App\Http\Controllers\Admin\PaymentController::class, 'webhookPaypal'])->name('webhooks.paypal');
 });
 
 // Member Portal Routes
@@ -204,4 +222,11 @@ Route::prefix('member')->name('member.')->middleware('auth')->group(function () 
     Route::get('/emergency-collections', [App\Http\Controllers\Member\MemberPortalController::class, 'emergencyCollections'])->name('emergency-collections');
     Route::get('/notices', [App\Http\Controllers\Member\MemberPortalController::class, 'notices'])->name('notices');
     Route::get('/donations', [App\Http\Controllers\Member\MemberPortalController::class, 'donations'])->name('donations');
+});
+
+// Online Payment Routes
+Route::prefix('payment')->name('payment.')->middleware('auth')->group(function () {
+    Route::post('/checkout', [App\Http\Controllers\OnlinePaymentController::class, 'checkout'])->name('checkout');
+    Route::get('/success', [App\Http\Controllers\OnlinePaymentController::class, 'success'])->name('success');
+    Route::get('/cancel', [App\Http\Controllers\OnlinePaymentController::class, 'cancel'])->name('cancel');
 });
