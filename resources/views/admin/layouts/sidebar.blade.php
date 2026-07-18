@@ -264,7 +264,7 @@
             
             @can('events.view')
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.events.index') }}" class="nav-link {{ request()->routeIs('admin.events.*') ? 'active' : '' }}">
                     <i class="bi bi-calendar-event"></i>
                     <span>Events</span>
                 </a>

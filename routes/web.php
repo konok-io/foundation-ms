@@ -22,6 +22,11 @@ Route::get('/page/{slug}', [PageController::class, 'show'])->name('frontend.page
 // Blood Donor Public Search
 Route::get('/blood-donors/search', [App\Http\Controllers\Admin\BloodDonorController::class, 'publicSearch'])->name('blood-donors.search');
 
+// Public Events
+Route::get('/events', [App\Http\Controllers\Admin\EventController::class, 'publicIndex'])->name('public.events.index');
+Route::get('/events/{event}', [App\Http\Controllers\Admin\EventController::class, 'publicShow'])->name('public.events.show');
+Route::post('/events/{event}/register', [App\Http\Controllers\Admin\EventController::class, 'register'])->name('public.events.register');
+
 // Language Switch
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'bn'])) {
@@ -350,6 +355,25 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:blood_donors.edit')->group(function () {
         Route::post('/blood-donors/{member}/availability', [App\Http\Controllers\Admin\BloodDonorController::class, 'updateAvailability'])->name('blood-donors.update-availability');
         Route::get('/blood-donors/{member}/toggle', [App\Http\Controllers\Admin\BloodDonorController::class, 'toggleDonorStatus'])->name('blood-donors.toggle');
+    });
+
+    // Events
+    Route::middleware('permission:events.view')->group(function () {
+        Route::get('/events', [App\Http\Controllers\Admin\EventController::class, 'index'])->name('events.index');
+        Route::get('/events/{event}', [App\Http\Controllers\Admin\EventController::class, 'show'])->name('events.show');
+    });
+    Route::middleware('permission:events.create')->group(function () {
+        Route::get('/events/create', [App\Http\Controllers\Admin\EventController::class, 'create'])->name('events.create');
+        Route::post('/events', [App\Http\Controllers\Admin\EventController::class, 'store'])->name('events.store');
+    });
+    Route::middleware('permission:events.edit')->group(function () {
+        Route::get('/events/{event}/edit', [App\Http\Controllers\Admin\EventController::class, 'edit'])->name('events.edit');
+        Route::put('/events/{event}', [App\Http\Controllers\Admin\EventController::class, 'update'])->name('events.update');
+        Route::get('/events/{event}/toggle', [App\Http\Controllers\Admin\EventController::class, 'toggleStatus'])->name('events.toggle');
+        Route::put('/events/{event}/registrations/{registration}', [App\Http\Controllers\Admin\EventController::class, 'updateRegistration'])->name('events.registration.update');
+    });
+    Route::middleware('permission:events.delete')->group(function () {
+        Route::delete('/events/{event}', [App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
     });
 });
 
