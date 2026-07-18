@@ -153,6 +153,15 @@
             </li>
             @endcan
             
+            @can('donations.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.donations.index') }}" class="nav-link {{ request()->routeIs('admin.donations.*') ? 'active' : '' }}">
+                    <i class="bi bi-heart"></i>
+                    <span>Donations</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('events.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">

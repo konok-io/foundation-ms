@@ -226,6 +226,30 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:receipts.export')->group(function () {
         Route::get('/receipts/export', [App\Http\Controllers\Admin\ReceiptController::class, 'export'])->name('receipts.export');
     });
+
+    // Donation Management
+    Route::middleware('permission:donations.view')->group(function () {
+        Route::get('/donations', [App\Http\Controllers\Admin\DonationController::class, 'index'])->name('donations.index');
+        Route::get('/donations/{donation}', [App\Http\Controllers\Admin\DonationController::class, 'show'])->name('donations.show');
+    });
+
+    Route::middleware('permission:donations.create')->group(function () {
+        Route::get('/donations/create', [App\Http\Controllers\Admin\DonationController::class, 'create'])->name('donations.create');
+        Route::post('/donations', [App\Http\Controllers\Admin\DonationController::class, 'store'])->name('donations.store');
+    });
+
+    Route::middleware('permission:donations.edit')->group(function () {
+        Route::get('/donations/{donation}/edit', [App\Http\Controllers\Admin\DonationController::class, 'edit'])->name('donations.edit');
+        Route::put('/donations/{donation}', [App\Http\Controllers\Admin\DonationController::class, 'update'])->name('donations.update');
+    });
+
+    Route::middleware('permission:donations.delete')->group(function () {
+        Route::delete('/donations/{donation}', [App\Http\Controllers\Admin\DonationController::class, 'destroy'])->name('donations.destroy');
+    });
+
+    Route::middleware('permission:donations.export')->group(function () {
+        Route::get('/donations/export', [App\Http\Controllers\Admin\DonationController::class, 'export'])->name('donations.export');
+    });
 });
 
 // Member Portal Routes
@@ -253,3 +277,9 @@ Route::prefix('payment')->name('payment.')->middleware('auth')->group(function (
 
 // Public Receipt Verification
 Route::get('/verify/receipt/{receipt_no}', [App\Http\Controllers\Admin\ReceiptController::class, 'verify'])->name('receipt.verify');
+
+// Public Donation Routes
+Route::get('/donate', [App\Http\Controllers\PublicDonationController::class, 'index'])->name('donate');
+Route::post('/donate', [App\Http\Controllers\PublicDonationController::class, 'store'])->name('donation.store');
+Route::get('/donate/success/{donation}', [App\Http\Controllers\PublicDonationController::class, 'paymentSuccess'])->name('donation.payment.success');
+Route::get('/donate/cancel/{donation}', [App\Http\Controllers\PublicDonationController::class, 'paymentCancel'])->name('donation.payment.cancel');

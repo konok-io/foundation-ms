@@ -1,0 +1,32 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle me-2"></i>Donation Cancelled</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="bi bi-x-circle text-warning" style="font-size: 5rem;"></i>
+                    </div>
+                    
+                    <h3 class="mb-3">Your donation was cancelled.</h3>
+                    <p class="text-muted">No charges have been made. You can try again whenever you're ready.</p>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                        <a href="{{ route('donate') }}" class="btn btn-primary btn-lg">
+                            <i class="bi bi-heart me-2"></i>Try Again
+                        </a>
+                        <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-house me-2"></i>Go to Homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
