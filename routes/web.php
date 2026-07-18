@@ -38,6 +38,10 @@ Route::get('/gallery/{album}', [App\Http\Controllers\Admin\GalleryController::cl
 Route::get('/activities', [App\Http\Controllers\Admin\ActivityController::class, 'publicIndex'])->name('public.activities.index');
 Route::get('/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'publicShow'])->name('public.activities.show');
 
+// QR Verification
+Route::get('/verify/member/{code}', [App\Http\Controllers\QRVerificationController::class, 'verify'])->name('verify.member');
+Route::get('/verify/payment/{receiptNumber}', [App\Http\Controllers\QRVerificationController::class, 'paymentVerify'])->name('verify.payment');
+
 // Language Switch
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'bn'])) {
@@ -455,6 +459,31 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     });
     Route::middleware('permission:activities.delete')->group(function () {
         Route::delete('/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'destroy'])->name('activities.destroy');
+    });
+
+    // Member Notifications
+    Route::middleware('permission:notifications.view')->group(function () {
+        Route::get('/notifications', [App\Http\Controllers\Admin\MemberNotificationController::class, 'index'])->name('notifications.index');
+        Route::get('/notifications/{notification}/read', [App\Http\Controllers\Admin\MemberNotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+        Route::get('/notifications/mark-all-read', [App\Http\Controllers\Admin\MemberNotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+    });
+    Route::middleware('permission:notifications.create')->group(function () {
+        Route::get('/notifications/create', [App\Http\Controllers\Admin\MemberNotificationController::class, 'create'])->name('notifications.create');
+        Route::post('/notifications', [App\Http\Controllers\Admin\MemberNotificationController::class, 'store'])->name('notifications.store');
+        Route::post('/notifications/bulk', [App\Http\Controllers\Admin\MemberNotificationController::class, 'sendBulk'])->name('notifications.bulk');
+    });
+    Route::middleware('permission:notifications.delete')->group(function () {
+        Route::delete('/notifications/{notification}', [App\Http\Controllers\Admin\MemberNotificationController::class, 'destroy'])->name('notifications.destroy');
+    });
+    
+    // QR Codes
+    Route::middleware('permission:members.view')->group(function () {
+        Route::get('/members/{member}/qr-code', [App\Http\Controllers\QRVerificationController::class, 'generateMemberQR'])->name('members.qr-code');
+        Route::get('/members/{member}/qr-code/download', [App\Http\Controllers\QRVerificationController::class, 'downloadMemberQR'])->name('members.qr-code.download');
+    });
+    Route::middleware('permission:payments.view')->group(function () {
+        Route::get('/payments/{payment}/qr-code', [App\Http\Controllers\QRVerificationController::class, 'generatePaymentQR'])->name('payments.qr-code');
+        Route::get('/payments/{payment}/qr-code/download', [App\Http\Controllers\QRVerificationController::class, 'downloadPaymentQR'])->name('payments.qr-code.download');
     });
 });
 

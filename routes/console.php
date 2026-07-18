@@ -21,3 +21,12 @@ Schedule::command('activity-logs:clean')->weekly();
 
 // Backup cleanup daily
 Schedule::command('backup:clean')->daily();
+
+// Send birthday reminders daily at 6 AM
+Schedule::command('reminders:send birthday')->dailyAt('06:00');
+
+// Send membership expiry reminders daily at 7 AM
+Schedule::command('reminders:send expiry')->dailyAt('07:00');
+
+// Send due reminders daily at 8 AM
+Schedule::command('reminders:send due')->dailyAt('08:00');

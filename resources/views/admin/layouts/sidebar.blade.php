@@ -316,6 +316,15 @@
             </li>
             @endcan
             
+            @can('notifications.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.notifications.index') }}" class="nav-link {{ request()->routeIs('admin.notifications.*') ? 'active' : '' }}">
+                    <i class="bi bi-bell"></i>
+                    <span>Notifications</span>
+                </a>
+            </li>
+            @endcan
+            
             <li class="nav-item mt-3">
                 <span class="nav-link text-white-50 text-uppercase small"><small>System</small></span>
             </li>
