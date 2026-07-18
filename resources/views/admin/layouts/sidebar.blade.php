@@ -144,6 +144,15 @@
             </li>
             @endcan
             
+            @can('receipts.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.receipts.index') }}" class="nav-link {{ request()->routeIs('admin.receipts.*') ? 'active' : '' }}">
+                    <i class="bi bi-receipt"></i>
+                    <span>Receipts</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('events.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">

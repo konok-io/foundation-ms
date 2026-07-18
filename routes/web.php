@@ -206,6 +206,26 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     // Payment Webhooks
     Route::post('/webhooks/stripe', [App\Http\Controllers\Admin\PaymentController::class, 'webhookStripe'])->name('webhooks.stripe');
     Route::post('/webhooks/paypal', [App\Http\Controllers\Admin\PaymentController::class, 'webhookPaypal'])->name('webhooks.paypal');
+
+    // Receipt Management
+    Route::middleware('permission:receipts.view')->group(function () {
+        Route::get('/receipts', [App\Http\Controllers\Admin\ReceiptController::class, 'index'])->name('receipts.index');
+        Route::get('/receipts/{receipt}', [App\Http\Controllers\Admin\ReceiptController::class, 'show'])->name('receipts.show');
+    });
+
+    Route::middleware('permission:receipts.download')->group(function () {
+        Route::get('/receipts/{receipt}/download', [App\Http\Controllers\Admin\ReceiptController::class, 'download'])->name('receipts.download');
+        Route::get('/receipts/{receipt}/print', [App\Http\Controllers\Admin\ReceiptController::class, 'print'])->name('receipts.print');
+    });
+
+    Route::middleware('permission:receipts.email')->group(function () {
+        Route::post('/receipts/{receipt}/email', [App\Http\Controllers\Admin\ReceiptController::class, 'email'])->name('receipts.email');
+        Route::post('/receipts/bulk-email', [App\Http\Controllers\Admin\ReceiptController::class, 'bulkEmail'])->name('receipts.bulk-email');
+    });
+
+    Route::middleware('permission:receipts.export')->group(function () {
+        Route::get('/receipts/export', [App\Http\Controllers\Admin\ReceiptController::class, 'export'])->name('receipts.export');
+    });
 });
 
 // Member Portal Routes
@@ -230,3 +250,6 @@ Route::prefix('payment')->name('payment.')->middleware('auth')->group(function (
     Route::get('/success', [App\Http\Controllers\OnlinePaymentController::class, 'success'])->name('success');
     Route::get('/cancel', [App\Http\Controllers\OnlinePaymentController::class, 'cancel'])->name('cancel');
 });
+
+// Public Receipt Verification
+Route::get('/verify/receipt/{receipt_no}', [App\Http\Controllers\Admin\ReceiptController::class, 'verify'])->name('receipt.verify');
