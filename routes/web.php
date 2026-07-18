@@ -141,3 +141,19 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::get('/members/export', [MemberController::class, 'export'])->name('members.export');
     });
 });
+
+// Member Portal Routes
+Route::prefix('member')->name('member.')->middleware('auth')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Member\MemberPortalController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profile', [App\Http\Controllers\Member\MemberPortalController::class, 'profile'])->name('profile');
+    Route::put('/profile', [App\Http\Controllers\Member\MemberPortalController::class, 'profileUpdate'])->name('profile.update');
+    Route::get('/change-password', [App\Http\Controllers\Member\MemberPortalController::class, 'showChangePassword'])->name('change-password');
+    Route::put('/change-password', [App\Http\Controllers\Member\MemberPortalController::class, 'updatePassword'])->name('password.update');
+    Route::get('/card', [App\Http\Controllers\Member\MemberPortalController::class, 'memberCard'])->name('card');
+    Route::get('/card/download', [App\Http\Controllers\Member\MemberPortalController::class, 'downloadCard'])->name('card.download');
+    Route::get('/payments', [App\Http\Controllers\Member\MemberPortalController::class, 'payments'])->name('payments');
+    Route::get('/contributions', [App\Http\Controllers\Member\MemberPortalController::class, 'contributions'])->name('contributions');
+    Route::get('/emergency-collections', [App\Http\Controllers\Member\MemberPortalController::class, 'emergencyCollections'])->name('emergency-collections');
+    Route::get('/notices', [App\Http\Controllers\Member\MemberPortalController::class, 'notices'])->name('notices');
+    Route::get('/donations', [App\Http\Controllers\Member\MemberPortalController::class, 'donations'])->name('donations');
+});
