@@ -34,6 +34,10 @@ Route::get('/notices', [App\Http\Controllers\Admin\NoticeController::class, 'pub
 Route::get('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'publicIndex'])->name('public.gallery.index');
 Route::get('/gallery/{album}', [App\Http\Controllers\Admin\GalleryController::class, 'publicShow'])->name('public.gallery.show');
 
+// Public Activities
+Route::get('/activities', [App\Http\Controllers\Admin\ActivityController::class, 'publicIndex'])->name('public.activities.index');
+Route::get('/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'publicShow'])->name('public.activities.show');
+
 // Language Switch
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'bn'])) {
@@ -433,6 +437,24 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::post('/gallery/{album}/video', [App\Http\Controllers\Admin\GalleryController::class, 'addVideo'])->name('gallery.add-video');
         Route::delete('/gallery/images/{image}', [App\Http\Controllers\Admin\GalleryController::class, 'deleteImage'])->name('gallery.delete-image');
         Route::get('/gallery/images/{image}/featured', [App\Http\Controllers\Admin\GalleryController::class, 'toggleFeatured'])->name('gallery.toggle-featured');
+    });
+
+    // Activities
+    Route::middleware('permission:activities.view')->group(function () {
+        Route::get('/activities', [App\Http\Controllers\Admin\ActivityController::class, 'index'])->name('activities.index');
+        Route::get('/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'show'])->name('activities.show');
+    });
+    Route::middleware('permission:activities.create')->group(function () {
+        Route::get('/activities/create', [App\Http\Controllers\Admin\ActivityController::class, 'create'])->name('activities.create');
+        Route::post('/activities', [App\Http\Controllers\Admin\ActivityController::class, 'store'])->name('activities.store');
+    });
+    Route::middleware('permission:activities.edit')->group(function () {
+        Route::get('/activities/{activity}/edit', [App\Http\Controllers\Admin\ActivityController::class, 'edit'])->name('activities.edit');
+        Route::put('/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'update'])->name('activities.update');
+        Route::post('/activities/{activity}/status', [App\Http\Controllers\Admin\ActivityController::class, 'updateStatus'])->name('activities.status');
+    });
+    Route::middleware('permission:activities.delete')->group(function () {
+        Route::delete('/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'destroy'])->name('activities.destroy');
     });
 });
 

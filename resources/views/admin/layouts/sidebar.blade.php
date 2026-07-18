@@ -307,6 +307,15 @@
             </li>
             @endcan
             
+            @can('activities.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.activities.index') }}" class="nav-link {{ request()->routeIs('admin.activities.*') ? 'active' : '' }}">
+                    <i class="bi bi-activity"></i>
+                    <span>Activities</span>
+                </a>
+            </li>
+            @endcan
+            
             <li class="nav-item mt-3">
                 <span class="nav-link text-white-50 text-uppercase small"><small>System</small></span>
             </li>
