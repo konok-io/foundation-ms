@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             GeneralSettingSeeder::class,
             CmsPageSeeder::class,
             MemberSeeder::class,
+            ContributionSeeder::class,
         ]);
     }
 }

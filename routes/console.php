@@ -9,7 +9,15 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 // Scheduled Commands
-Schedule::command('contributions:generate-monthly-due')->monthlyOn(1, '00:00');
-Schedule::command('contributions:send-reminders')->weeklyOn(0, '09:00');
+
+// Generate monthly contributions on 1st of each month at midnight
+Schedule::command('contributions:generate --year=' . date('Y') . ' --month=' . date('n'))->monthlyOn(1, '00:00');
+
+// Mark overdue contributions daily at 1 AM
+Schedule::command('contributions:mark-overdue')->dailyAt('01:00');
+
+// Activity Logs cleanup weekly
 Schedule::command('activity-logs:clean')->weekly();
+
+// Backup cleanup daily
 Schedule::command('backup:clean')->daily();

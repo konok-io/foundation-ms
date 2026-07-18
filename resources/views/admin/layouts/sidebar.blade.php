@@ -117,6 +117,15 @@
             </li>
             @endcan
             
+            @can('contributions.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.contributions.index') }}" class="nav-link {{ request()->routeIs('admin.contributions.*') ? 'active' : '' }}">
+                    <i class="bi bi-wallet2"></i>
+                    <span>Contributions</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('events.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">

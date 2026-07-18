@@ -140,6 +140,30 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:members.export')->group(function () {
         Route::get('/members/export', [MemberController::class, 'export'])->name('members.export');
     });
+
+    // Contribution Management
+    Route::middleware('permission:contributions.view')->group(function () {
+        Route::get('/contributions', [App\Http\Controllers\Admin\ContributionController::class, 'index'])->name('contributions.index');
+        Route::get('/contributions/{contribution}', [App\Http\Controllers\Admin\ContributionController::class, 'show'])->name('contributions.show');
+    });
+
+    Route::middleware('permission:contributions.create')->group(function () {
+        Route::get('/contributions/create', [App\Http\Controllers\Admin\ContributionController::class, 'create'])->name('contributions.create');
+        Route::post('/contributions', [App\Http\Controllers\Admin\ContributionController::class, 'store'])->name('contributions.store');
+        Route::post('/contributions/generate', [App\Http\Controllers\Admin\ContributionController::class, 'generateMonthly'])->name('contributions.generate');
+    });
+
+    Route::middleware('permission:contributions.edit')->group(function () {
+        Route::get('/contributions/{contribution}/edit', [App\Http\Controllers\Admin\ContributionController::class, 'edit'])->name('contributions.edit');
+        Route::put('/contributions/{contribution}', [App\Http\Controllers\Admin\ContributionController::class, 'update'])->name('contributions.update');
+        Route::post('/contributions/{contribution}/payment', [App\Http\Controllers\Admin\ContributionController::class, 'recordPayment'])->name('contributions.record-payment');
+        Route::post('/contributions/mark-overdue', [App\Http\Controllers\Admin\ContributionController::class, 'markOverdue'])->name('contributions.mark-overdue');
+        Route::post('/contributions/bulk-payment', [App\Http\Controllers\Admin\ContributionController::class, 'bulkPayment'])->name('contributions.bulk-payment');
+    });
+
+    Route::middleware('permission:contributions.delete')->group(function () {
+        Route::delete('/contributions/{contribution}', [App\Http\Controllers\Admin\ContributionController::class, 'destroy'])->name('contributions.destroy');
+    });
 });
 
 // Member Portal Routes
