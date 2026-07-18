@@ -328,6 +328,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:reports.view')->group(function () {
         Route::get('/accounting/reports/income-statement', [App\Http\Controllers\Admin\LedgerController::class, 'incomeStatement'])->name('reports.income-statement');
     });
+
+    // Financial Reports
+    Route::middleware('permission:reports.view')->group(function () {
+        Route::get('/reports/daily', [App\Http\Controllers\Admin\ReportController::class, 'dailyReport'])->name('reports.daily');
+        Route::get('/reports/monthly', [App\Http\Controllers\Admin\ReportController::class, 'monthlyReport'])->name('reports.monthly');
+        Route::get('/reports/yearly', [App\Http\Controllers\Admin\ReportController::class, 'yearlyReport'])->name('reports.yearly');
+        Route::get('/reports/member-contribution', [App\Http\Controllers\Admin\ReportController::class, 'memberContributionReport'])->name('reports.member-contribution');
+        Route::get('/reports/emergency-fund', [App\Http\Controllers\Admin\ReportController::class, 'emergencyFundReport'])->name('reports.emergency-fund');
+        Route::get('/reports/donation', [App\Http\Controllers\Admin\ReportController::class, 'donationReport'])->name('reports.donation');
+        Route::get('/reports/outstanding-due', [App\Http\Controllers\Admin\ReportController::class, 'outstandingDueReport'])->name('reports.outstanding-due');
+    });
 });
 
 // Member Portal Routes

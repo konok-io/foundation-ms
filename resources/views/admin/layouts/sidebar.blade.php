@@ -207,9 +207,55 @@
                         @endcan
                         @can('reports.view')
                         <li class="nav-item">
-                            <a href="{{ route('admin.reports.income-statement') }}" class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
-                                <i class="bi bi-graph-up"></i> Reports
+                            <a href="{{ route('admin.reports.income-statement') }}" class="nav-link {{ request()->routeIs('admin.reports.income-statement') ? 'active' : '' }}">
+                                <i class="bi bi-graph-up"></i> Income Statement
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportsMenu">
+                                <i class="bi bi-file-earmark-bar-graph"></i>
+                                <span>Financial Reports</span>
+                                <i class="bi bi-chevron-right ms-auto"></i>
+                            </a>
+                            <div id="reportsMenu" class="collapse">
+                                <ul class="nav flex-column ms-3">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.reports.daily') }}" class="nav-link {{ request()->routeIs('admin.reports.daily') ? 'active' : '' }}">
+                                            <i class="bi bi-calendar-day"></i> Daily Report
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.reports.monthly') }}" class="nav-link {{ request()->routeIs('admin.reports.monthly') ? 'active' : '' }}">
+                                            <i class="bi bi-calendar-month"></i> Monthly Report
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.reports.yearly') }}" class="nav-link {{ request()->routeIs('admin.reports.yearly') ? 'active' : '' }}">
+                                            <i class="bi bi-calendar"></i> Yearly Report
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.reports.member-contribution') }}" class="nav-link {{ request()->routeIs('admin.reports.member-contribution') ? 'active' : '' }}">
+                                            <i class="bi bi-people"></i> Member Contribution
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.reports.emergency-fund') }}" class="nav-link {{ request()->routeIs('admin.reports.emergency-fund') ? 'active' : '' }}">
+                                            <i class="bi bi-exclamation-triangle"></i> Emergency Fund
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.reports.donation') }}" class="nav-link {{ request()->routeIs('admin.reports.donation') ? 'active' : '' }}">
+                                            <i class="bi bi-heart"></i> Donation
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.reports.outstanding-due') }}" class="nav-link {{ request()->routeIs('admin.reports.outstanding-due') ? 'active' : '' }}">
+                                            <i class="bi bi-clock-history"></i> Outstanding Due
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         @endcan
                     </ul>
