@@ -271,6 +271,15 @@
             </li>
             @endcan
             
+            @can('blood_donors.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.blood-donors.index') }}" class="nav-link {{ request()->routeIs('admin.blood-donors.*') ? 'active' : '' }}">
+                    <i class="bi bi-droplet"></i>
+                    <span>Blood Donors</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('notices.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">

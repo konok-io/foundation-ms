@@ -48,12 +48,23 @@ class Member extends Model
         'nominee_phone',
         'qr_code',
         'referrer_member_id',
+        'last_donation_date',
+        'is_blood_donor',
+        'donation_availability',
     ];
 
     protected $casts = [
         'date_of_birth' => 'date',
         'join_date' => 'date',
+        'last_donation_date' => 'date',
         'status' => 'boolean',
+        'is_blood_donor' => 'boolean',
+    ];
+
+    const DONATION_AVAILABILITY = [
+        'available' => 'Available',
+        'unavailable' => 'Unavailable',
+        'temporarily_unavailable' => 'Temporarily Unavailable',
     ];
 
     const STATUSES = [
@@ -155,6 +166,17 @@ class Member extends Model
     public function scopeActive($query)
     {
         return $query->where('status', true);
+    }
+
+    public function scopeBloodDonors($query)
+    {
+        return $query->where('is_blood_donor', true);
+    }
+
+    public function scopeAvailableDonors($query)
+    {
+        return $query->where('is_blood_donor', true)
+            ->where('donation_availability', 'available');
     }
 
     public function scopeSearch($query, $term)

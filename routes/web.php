@@ -19,6 +19,9 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('frontend.page');
 
+// Blood Donor Public Search
+Route::get('/blood-donors/search', [App\Http\Controllers\Admin\BloodDonorController::class, 'publicSearch'])->name('blood-donors.search');
+
 // Language Switch
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'bn'])) {
@@ -338,6 +341,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::get('/reports/emergency-fund', [App\Http\Controllers\Admin\ReportController::class, 'emergencyFundReport'])->name('reports.emergency-fund');
         Route::get('/reports/donation', [App\Http\Controllers\Admin\ReportController::class, 'donationReport'])->name('reports.donation');
         Route::get('/reports/outstanding-due', [App\Http\Controllers\Admin\ReportController::class, 'outstandingDueReport'])->name('reports.outstanding-due');
+    });
+
+    // Blood Donors
+    Route::middleware('permission:blood_donors.view')->group(function () {
+        Route::get('/blood-donors', [App\Http\Controllers\Admin\BloodDonorController::class, 'index'])->name('blood-donors.index');
+    });
+    Route::middleware('permission:blood_donors.edit')->group(function () {
+        Route::post('/blood-donors/{member}/availability', [App\Http\Controllers\Admin\BloodDonorController::class, 'updateAvailability'])->name('blood-donors.update-availability');
+        Route::get('/blood-donors/{member}/toggle', [App\Http\Controllers\Admin\BloodDonorController::class, 'toggleDonorStatus'])->name('blood-donors.toggle');
     });
 });
 
