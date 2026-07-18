@@ -396,6 +396,24 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:notices.delete')->group(function () {
         Route::delete('/notices/{notice}', [App\Http\Controllers\Admin\NoticeController::class, 'destroy'])->name('notices.destroy');
     });
+
+    // Documents
+    Route::middleware('permission:documents.view')->group(function () {
+        Route::get('/documents', [App\Http\Controllers\Admin\DocumentController::class, 'index'])->name('documents.index');
+        Route::get('/documents/{document}', [App\Http\Controllers\Admin\DocumentController::class, 'show'])->name('documents.show');
+        Route::get('/documents/{document}/download', [App\Http\Controllers\Admin\DocumentController::class, 'download'])->name('documents.download');
+        Route::get('/members/{member}/documents', [App\Http\Controllers\Admin\DocumentController::class, 'memberDocuments'])->name('documents.member');
+    });
+    Route::middleware('permission:documents.create')->group(function () {
+        Route::get('/members/{member}/documents/create', [App\Http\Controllers\Admin\DocumentController::class, 'create'])->name('documents.create');
+        Route::post('/members/{member}/documents', [App\Http\Controllers\Admin\DocumentController::class, 'store'])->name('documents.store');
+    });
+    Route::middleware('permission:documents.verify')->group(function () {
+        Route::get('/documents/{document}/verify', [App\Http\Controllers\Admin\DocumentController::class, 'verify'])->name('documents.verify');
+    });
+    Route::middleware('permission:documents.delete')->group(function () {
+        Route::delete('/documents/{document}', [App\Http\Controllers\Admin\DocumentController::class, 'destroy'])->name('documents.destroy');
+    });
 });
 
 // Member Portal Routes

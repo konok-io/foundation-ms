@@ -289,6 +289,15 @@
             </li>
             @endcan
             
+            @can('documents.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.documents.index') }}" class="nav-link {{ request()->routeIs('admin.documents.*') ? 'active' : '' }}">
+                    <i class="bi bi-file-earmark-text"></i>
+                    <span>Documents</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('gallery.manage')
             <li class="nav-item">
                 <a href="#" class="nav-link">

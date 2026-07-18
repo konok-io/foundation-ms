@@ -163,6 +163,11 @@ class Member extends Model
         return $this->belongsTo(Member::class, 'referrer_member_id');
     }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', true);
