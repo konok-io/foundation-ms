@@ -16,7 +16,6 @@
         "spatie/laravel-medialibrary": "^11.0",
         "laravel/cashier": "^15.0",
         "spatie/laravel-activitylog": "^4.7",
-        "spatie/laravel-backup": "^8.0",
         "laravel/sanctum": "^4.0"
     },
     "require-dev": {
@@ -68,7 +67,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
-        }
+        },
+        "policy.advisories.ignore": ["PKSA-zwc5-qtrz-zm1n"]
     },
     "minimum-stability": "stable",
     "prefer-stable": true
