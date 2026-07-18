@@ -13,11 +13,10 @@
         "barryvdh/laravel-dompdf": "^3.0",
         "maatwebsite/excel": "^3.1",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/laravel-media-library": "^11.0",
+        "spatie/laravel-medialibrary": "^11.0",
         "laravel/cashier": "^15.0",
         "spatie/laravel-activitylog": "^4.7",
         "spatie/laravel-backup": "^8.0",
-        "laravel/horizon": "^5.0",
         "laravel/sanctum": "^4.0"
     },
     "require-dev": {
