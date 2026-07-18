@@ -338,6 +338,15 @@
             </li>
             @endcan
             
+            @can('audit-logs.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.audit-logs.index') }}" class="nav-link {{ request()->routeIs('admin.audit-logs.*') ? 'active' : '' }}">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Audit Logs</span>
+                </a>
+            </li>
+            @endcan
+            
             <li class="nav-item">
                 <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-box-arrow-right"></i>

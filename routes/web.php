@@ -126,6 +126,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::post('/settings/clear-cache', [SettingsController::class, 'clearCache'])->name('settings.clear-cache');
     });
 
+    // Audit Logs
+    Route::middleware('permission:audit-logs.view')->group(function () {
+        Route::get('/audit-logs', [App\Http\Controllers\Admin\AuditLogController::class, 'index'])->name('audit-logs.index');
+        Route::get('/audit-logs/export', [App\Http\Controllers\Admin\AuditLogController::class, 'export'])->name('audit-logs.export');
+        Route::get('/audit-logs/{log}', [App\Http\Controllers\Admin\AuditLogController::class, 'show'])->name('audit-logs.show');
+    });
+    Route::middleware('permission:audit-logs.delete')->group(function () {
+        Route::delete('/audit-logs/{log}', [App\Http\Controllers\Admin\AuditLogController::class, 'destroy'])->name('audit-logs.destroy');
+    });
+
     // CMS Management
     Route::middleware('permission:settings.cms')->group(function () {
         Route::get('/cms', [CmsController::class, 'index'])->name('cms.index');
