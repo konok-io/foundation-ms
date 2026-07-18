@@ -126,6 +126,15 @@
             </li>
             @endcan
             
+            @can('emergency_collections.view')
+            <li class="nav-item">
+                <a href="{{ route('admin.emergency-collections.index') }}" class="nav-link {{ request()->routeIs('admin.emergency-collections.*') ? 'active' : '' }}">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <span>Emergency</span>
+                </a>
+            </li>
+            @endcan
+            
             @can('events.view')
             <li class="nav-item">
                 <a href="#" class="nav-link">

@@ -164,6 +164,30 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('permission:contributions.delete')->group(function () {
         Route::delete('/contributions/{contribution}', [App\Http\Controllers\Admin\ContributionController::class, 'destroy'])->name('contributions.destroy');
     });
+
+    // Emergency Collection Management
+    Route::middleware('permission:emergency_collections.view')->group(function () {
+        Route::get('/emergency-collections', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'index'])->name('emergency-collections.index');
+        Route::get('/emergency-collections/{emergencyCollection}', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'show'])->name('emergency-collections.show');
+    });
+
+    Route::middleware('permission:emergency_collections.create')->group(function () {
+        Route::get('/emergency-collections/create', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'create'])->name('emergency-collections.create');
+        Route::post('/emergency-collections', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'store'])->name('emergency-collections.store');
+    });
+
+    Route::middleware('permission:emergency_collections.edit')->group(function () {
+        Route::get('/emergency-collections/{emergencyCollection}/edit', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'edit'])->name('emergency-collections.edit');
+        Route::put('/emergency-collections/{emergencyCollection}', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'update'])->name('emergency-collections.update');
+        Route::post('/emergency-collections/{emergencyCollection}/assign-members', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'assignMembers'])->name('emergency-collections.assign-members');
+        Route::post('/emergency-collections/{emergencyCollection}/close', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'closeCollection'])->name('emergency-collections.close-collection');
+        Route::post('/emergency-collections/{payment}/record-payment', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'recordPayment'])->name('emergency-collections.record-payment');
+        Route::post('/emergency-collections/bulk-payment', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'bulkPayment'])->name('emergency-collections.bulk-payment');
+    });
+
+    Route::middleware('permission:emergency_collections.delete')->group(function () {
+        Route::delete('/emergency-collections/{emergencyCollection}', [App\Http\Controllers\Admin\EmergencyCollectionController::class, 'destroy'])->name('emergency-collections.destroy');
+    });
 });
 
 // Member Portal Routes
