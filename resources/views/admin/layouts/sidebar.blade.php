@@ -282,7 +282,7 @@
             
             @can('notices.view')
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.notices.index') }}" class="nav-link {{ request()->routeIs('admin.notices.*') ? 'active' : '' }}">
                     <i class="bi bi-bell"></i>
                     <span>Notices</span>
                 </a>

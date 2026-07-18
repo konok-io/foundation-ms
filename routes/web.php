@@ -27,6 +27,9 @@ Route::get('/events', [App\Http\Controllers\Admin\EventController::class, 'publi
 Route::get('/events/{event}', [App\Http\Controllers\Admin\EventController::class, 'publicShow'])->name('public.events.show');
 Route::post('/events/{event}/register', [App\Http\Controllers\Admin\EventController::class, 'register'])->name('public.events.register');
 
+// Public Notices
+Route::get('/notices', [App\Http\Controllers\Admin\NoticeController::class, 'publicIndex'])->name('public.notices.index');
+
 // Language Switch
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'bn'])) {
@@ -374,6 +377,24 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     });
     Route::middleware('permission:events.delete')->group(function () {
         Route::delete('/events/{event}', [App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
+    });
+
+    // Notices
+    Route::middleware('permission:notices.view')->group(function () {
+        Route::get('/notices', [App\Http\Controllers\Admin\NoticeController::class, 'index'])->name('notices.index');
+        Route::get('/notices/{notice}', [App\Http\Controllers\Admin\NoticeController::class, 'show'])->name('notices.show');
+    });
+    Route::middleware('permission:notices.create')->group(function () {
+        Route::get('/notices/create', [App\Http\Controllers\Admin\NoticeController::class, 'create'])->name('notices.create');
+        Route::post('/notices', [App\Http\Controllers\Admin\NoticeController::class, 'store'])->name('notices.store');
+    });
+    Route::middleware('permission:notices.edit')->group(function () {
+        Route::get('/notices/{notice}/edit', [App\Http\Controllers\Admin\NoticeController::class, 'edit'])->name('notices.edit');
+        Route::put('/notices/{notice}', [App\Http\Controllers\Admin\NoticeController::class, 'update'])->name('notices.update');
+        Route::get('/notices/{notice}/toggle', [App\Http\Controllers\Admin\NoticeController::class, 'toggleStatus'])->name('notices.toggle');
+    });
+    Route::middleware('permission:notices.delete')->group(function () {
+        Route::delete('/notices/{notice}', [App\Http\Controllers\Admin\NoticeController::class, 'destroy'])->name('notices.destroy');
     });
 });
 
