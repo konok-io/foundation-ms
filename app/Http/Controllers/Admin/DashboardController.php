@@ -143,56 +143,58 @@ class DashboardController extends Controller
         $recentPayments = Payment::with('member')
             ->latest()
             ->take(5)
-            ->get()
-            ->map(function ($payment) {
-                return (object)[
-                    'type' => 'payment',
-                    'icon' => 'bi-cash-stack',
-                    'color' => 'success',
-                    'message' => ($payment->member?->name ?? 'Unknown') . ' paid ' . number_format($payment->amount, 2) . ' SAR',
-                    'time' => $payment->created_at->diffForHumans(),
-                    'created_at' => $payment->created_at,
-                ];
-            });
+            ->get();
+        
+        foreach ($recentPayments as $payment) {
+            $activities[] = [
+                'type' => 'payment',
+                'icon' => 'bi-cash-stack',
+                'color' => 'success',
+                'message' => ($payment->member?->name ?? 'Unknown') . ' paid ' . number_format($payment->amount, 2) . ' SAR',
+                'time' => $payment->created_at->diffForHumans(),
+                'created_at' => $payment->created_at->timestamp,
+            ];
+        }
         
         // Recent members
         $recentMembers = Member::latest()
             ->take(5)
-            ->get()
-            ->map(function ($member) {
-                return (object)[
-                    'type' => 'member',
-                    'icon' => 'bi-person-plus',
-                    'color' => 'primary',
-                    'message' => 'New member: ' . $member->name,
-                    'time' => $member->created_at->diffForHumans(),
-                    'created_at' => $member->created_at,
-                ];
-            });
+            ->get();
+        
+        foreach ($recentMembers as $member) {
+            $activities[] = [
+                'type' => 'member',
+                'icon' => 'bi-person-plus',
+                'color' => 'primary',
+                'message' => 'New member: ' . $member->name,
+                'time' => $member->created_at->diffForHumans(),
+                'created_at' => $member->created_at->timestamp,
+            ];
+        }
         
         // Recent donations
         $recentDonations = Donation::where('status', 'completed')
             ->latest()
             ->take(5)
-            ->get()
-            ->map(function ($donation) {
-                return (object)[
-                    'type' => 'donation',
-                    'icon' => 'bi-heart',
-                    'color' => 'danger',
-                    'message' => $donation->donor_name . ' donated ' . number_format($donation->amount, 2) . ' SAR',
-                    'time' => $donation->created_at->diffForHumans(),
-                    'created_at' => $donation->created_at,
-                ];
-            });
+            ->get();
+        
+        foreach ($recentDonations as $donation) {
+            $activities[] = [
+                'type' => 'donation',
+                'icon' => 'bi-heart',
+                'color' => 'danger',
+                'message' => $donation->donor_name . ' donated ' . number_format($donation->amount, 2) . ' SAR',
+                'time' => $donation->created_at->diffForHumans(),
+                'created_at' => $donation->created_at->timestamp,
+            ];
+        }
 
-        $allActivities = $recentPayments->merge($recentMembers)
-            ->merge($recentDonations)
-            ->sortByDesc('created_at')
-            ->take(10)
-            ->values();
+        // Sort by created_at descending and take 10
+        usort($activities, function($a, $b) {
+            return $b['created_at'] - $a['created_at'];
+        });
 
-        return $allActivities;
+        return array_slice($activities, 0, 10);
     }
 
     protected function getMonthlyTrend()
