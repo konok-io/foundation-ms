@@ -4,12 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
+        // Use array cache instead of database cache
+        config(['permission.cache.store' => 'array']);
         $permissions = [
             // User Management
             ['name' => 'users.view', 'group_name' => 'User Management', 'description' => 'View users'],

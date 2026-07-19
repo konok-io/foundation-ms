@@ -2,8 +2,8 @@
 
 return [
     'models' => [
-        'permission' => Spatie\Permission\Models\Permission::class,
-        'role' => Spatie\Permission\Models\Role::class,
+        'permission' => App\Models\Permission::class,
+        'role' => App\Models\Role::class,
     ],
     'table_names' => [
         'roles' => 'roles',
@@ -30,7 +30,7 @@ return [
     'updated_at' => null,
 
     'cache' => [
-        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
+        'expiration_time' => \DateInterval::createFromDateString('0 seconds'),
         'store' => 'array',
     ],
 ];
