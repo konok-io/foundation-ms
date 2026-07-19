@@ -27,6 +27,12 @@ Route::get('/events', [App\Http\Controllers\Admin\EventController::class, 'publi
 Route::get('/events/{event}', [App\Http\Controllers\Admin\EventController::class, 'publicShow'])->name('public.events.show');
 Route::post('/events/{event}/register', [App\Http\Controllers\Admin\EventController::class, 'register'])->name('public.events.register');
 
+// Alias routes for frontend
+Route::get('/frontend/events', [App\Http\Controllers\Admin\EventController::class, 'publicIndex'])->name('frontend.events');
+Route::get('/frontend/notices', [App\Http\Controllers\Admin\NoticeController::class, 'publicIndex'])->name('frontend.notices');
+Route::get('/frontend/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'publicIndex'])->name('frontend.gallery');
+Route::get('/frontend/activities', [App\Http\Controllers\Admin\ActivityController::class, 'publicIndex'])->name('frontend.activities');
+
 // Public Notices
 Route::get('/notices', [App\Http\Controllers\Admin\NoticeController::class, 'publicIndex'])->name('public.notices.index');
 
