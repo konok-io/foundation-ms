@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('members', function (Blueprint $table) {
-            $table->string('blood_group')->nullable()->after('gender');
+            // Note: blood_group already exists in members table
             $table->date('last_donation_date')->nullable()->after('join_date');
             $table->boolean('is_blood_donor')->default(false)->after('last_donation_date');
             $table->enum('donation_availability', ['available', 'unavailable', 'temporarily_unavailable'])->default('available')->after('is_blood_donor');
@@ -19,7 +19,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('members', function (Blueprint $table) {
-            $table->dropColumn(['blood_group', 'last_donation_date', 'is_blood_donor', 'donation_availability']);
+            $table->dropColumn(['last_donation_date', 'is_blood_donor', 'donation_availability']);
         });
     }
 };

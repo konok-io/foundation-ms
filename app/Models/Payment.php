@@ -32,14 +32,6 @@ class Payment extends Model
         'created_by',
     ];
 
-    protected $casts = [
-        'amount' => 'decimal:2',
-        'refund_amount' => 'decimal:2',
-        'gateway_response' => 'array',
-        'paid_at' => 'datetime',
-        'refunded_at' => 'datetime',
-    ];
-
     const TYPES = [
         'monthly_contribution' => 'Monthly Contribution',
         'emergency_collection' => 'Emergency Collection',
@@ -130,14 +122,4 @@ class Payment extends Model
 
         return 'RCP-' . date('Ymd') . '-' . str_pad($next, 4, '0', STR_PAD_LEFT);
     }
-
-    protected $casts = [
-        'amount' => 'decimal:2',
-        'refund_amount' => 'decimal:2',
-        'gateway_response' => 'array',
-        'paid_at' => 'datetime',
-        'refunded_at' => 'datetime',
-    ];
-
-    protected $appends = ['receipt_no'];
 }

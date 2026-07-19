@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ActivityLog extends Model
 {
@@ -31,9 +32,8 @@ class ActivityLog extends Model
         return $this->belongsTo(User::class, 'causer_id');
     }
 
-    public function subject(): BelongsTo
+    public function subject(): MorphTo
     {
-        $class = $this->subject_type;
-        return $this->belongsTo($class, 'subject_id');
+        return $this->morphTo();
     }
 }

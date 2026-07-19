@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class AuditLog extends Model
 {
@@ -41,12 +42,9 @@ class AuditLog extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function model()
+    public function model(): MorphTo
     {
-        if ($this->model_type) {
-            return $this->model_type::find($this->model_id);
-        }
-        return null;
+        return $this->morphTo();
     }
 
     public function getActionLabelAttribute(): string
