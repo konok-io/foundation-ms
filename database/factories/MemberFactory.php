@@ -12,7 +12,7 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
-            'member_id' => 'FMS-' . date('Y') . '-' . str_pad(fake()->unique()->randomNumber(4), 4, '0', STR_PAD_LEFT),
+            'member_id' => 'FMS-' . date('Y') . '-' . str_pad(fake()->unique()->numberBetween(1000, 9999), 4, '0', STR_PAD_LEFT),
             'name' => fake()->name(),
             'name_bn' => fake()->name(),
             'father_name' => fake()->name('male'),
@@ -22,7 +22,7 @@ class MemberFactory extends Factory
             'date_of_birth' => fake()->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
             'gender' => fake()->randomElement(['male', 'female', 'other']),
             'blood_group' => fake()->randomElement(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']),
-            'mobile' => '+880' . fake()->randomNumber(10),
+            'mobile' => '+880' . fake()->numberBetween(1000000000, 9999999999),
             'email' => fake()->unique()->safeEmail(),
             'national_id' => fake()->numerify('###########'),
             'passport_number' => fake()->numerify('########'),
@@ -36,7 +36,7 @@ class MemberFactory extends Factory
             'permanent_address' => fake()->address(),
             'permanent_address_bn' => fake()->address(),
             'emergency_contact_name' => fake()->name(),
-            'emergency_contact_phone' => '+880' . fake()->randomNumber(10),
+            'emergency_contact_phone' => '+880' . fake()->numberBetween(1000000000, 9999999999),
             'emergency_contact_relation' => fake()->randomElement(['Father', 'Mother', 'Spouse', 'Sibling']),
             'join_date' => fake()->dateTimeBetween('-5 years', 'now')->format('Y-m-d'),
             'member_type' => fake()->randomElement(['general', 'life', 'honorary', 'founder', 'associate']),
@@ -44,7 +44,7 @@ class MemberFactory extends Factory
             'position' => fake()->randomElement(['member', 'executive', 'secretary', 'vice_president', 'president', 'advisor']),
             'nominee_name' => fake()->name(),
             'nominee_relation' => fake()->randomElement(['Father', 'Mother', 'Spouse', 'Sibling', 'Child']),
-            'nominee_phone' => '+880' . fake()->randomNumber(10),
+            'nominee_phone' => '+880' . fake()->numberBetween(1000000000, 9999999999),
             'referrer_member_id' => null,
         ];
     }

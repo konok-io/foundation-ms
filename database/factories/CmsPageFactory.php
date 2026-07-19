@@ -17,7 +17,7 @@ class CmsPageFactory extends Factory
         return [
             'title' => $title,
             'title_bn' => fake()->sentence(4),
-            'slug' => Str::slug($title) . '-' . fake()->unique()->randomNumber(4),
+            'slug' => Str::slug($title) . '-' . fake()->unique()->numberBetween(1000, 9999),
             'content' => '<p>' . implode('</p><p>', fake()->paragraphs(5)) . '</p>',
             'content_bn' => '<p>' . implode('</p><p>', fake()->paragraphs(5)) . '</p>',
             'excerpt' => fake()->paragraph(),
