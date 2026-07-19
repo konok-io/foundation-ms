@@ -6,8 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- * This provider MUST be registered BEFORE Spatie\Permission\PermissionServiceProvider
- * to ensure that the cache.store is set to 'array' to avoid database table requirements.
+ * This provider loads config BEFORE Spatie\Permission\PermissionServiceProvider
  */
 class SpatiePermissionServiceProvider extends ServiceProvider
 {
@@ -16,11 +15,11 @@ class SpatiePermissionServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // CRITICAL: Set cache store to array BEFORE Spatie loads
-        // This prevents the "Table 'cache' doesn't exist" error
+        // CRITICAL: Set ALL permission cache config BEFORE Spatie loads
         config([
+            'permission.cache.key' => 'spatie.permission.cache',
             'permission.cache.store' => 'array',
-            'permission.cache.expiration_time' => 0,
+            'permission.cache.expiration_time' => \DateInterval::createFromDateString('0 seconds'),
             'cache.default' => 'array',
             'cache.store' => 'array',
         ]);
@@ -34,13 +33,14 @@ class SpatiePermissionServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Re-set the cache configuration in boot to ensure it takes effect
+        // Re-set the cache configuration in boot
         config([
+            'permission.cache.key' => 'spatie.permission.cache',
             'permission.cache.store' => 'array',
-            'permission.cache.expiration_time' => 0,
+            'permission.cache.expiration_time' => \DateInterval::createFromDateString('0 seconds'),
         ]);
         
-        // Forget any cached permissions to ensure fresh load
+        // Forget any cached permissions
         if ($this->app->bound(PermissionRegistrar::class)) {
             $this->app->make(PermissionRegistrar::class)->forgetCachedPermissions();
         }
