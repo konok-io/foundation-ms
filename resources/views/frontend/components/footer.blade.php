@@ -80,8 +80,8 @@
                             <i class="bi bi-heart-pulse-fill"></i>
                         </div>
                         <div>
-                            <div class="fw-bold text-white" style="font-family: 'Poppins', sans-serif;">{{ $siteSettings['site_name'] ?? 'Bangladesh Welfare Foundation' }}</div>
-                            <div class="small text-white-50">{{ $siteSettings['site_tagline'] ?? 'Serving Humanity, Building Hope' }}</div>
+                            <div class="fw-bold text-white" style="font-family: 'Poppins', sans-serif;">{{ $siteSettings['site_name'] ?? 'Foundation MS' }}</div>
+                            <div class="small text-white-50">{{ $siteSettings['site_tagline'] ?? 'Building a Better Tomorrow' }}</div>
                         </div>
                     </div>
                     <p class="text-white-50 mb-4">
@@ -169,7 +169,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6 text-center text-md-start">
                     <p class="text-white-50 small mb-0">
-                        &copy; {{ date('Y') }} {{ $siteSettings['site_name'] ?? 'Bangladesh Welfare Foundation' }}. All Rights Reserved.
+                        &copy; {{ date('Y') }} {{ $siteSettings['site_name'] ?? 'Foundation MS' }}. All Rights Reserved.
                     </p>
                 </div>
                 <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">

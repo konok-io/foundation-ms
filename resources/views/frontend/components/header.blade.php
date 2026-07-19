@@ -415,8 +415,8 @@
                         <i class="bi bi-heart-pulse-fill"></i>
                     </div>
                     <div>
-                        <div class="brand-text">{{ $siteSettings['site_name'] ?? 'Bangladesh Welfare Foundation' }}</div>
-                        <div class="brand-tagline">{{ $siteSettings['site_tagline'] ?? 'Serving Humanity, Building Hope' }}</div>
+                        <div class="brand-text">{{ $siteSettings['site_name'] ?? 'Foundation MS' }}</div>
+                        <div class="brand-tagline">{{ $siteSettings['site_tagline'] ?? 'Building a Better Tomorrow' }}</div>
                     </div>
                 </a>
 
@@ -490,7 +490,7 @@
                     </ul>
 
                     <div class="header-actions">
-                        <button class="btn-search"><i class="bi bi-search"></i></button>
+                        <button class="btn-search" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search"></i></button>
                         <a href="{{ route('donate') }}" class="btn-donate">
                             <i class="bi bi-heart-fill"></i> Donate Now
                         </a>
@@ -505,6 +505,37 @@
     <main>
         @yield('content')
     </main>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;">
+                <div class="modal-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="text-white fw-bold mb-0">Search</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg" placeholder="Search for members, events, notices..." style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 15px 0 0 15px;">
+                            <button class="btn btn-primary px-4" type="submit" style="border-radius: 0 15px 15px 0;">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-4">
+                        <p class="text-white-50 small mb-3">Popular Searches:</p>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <a href="{{ route('public.events.index') }}" class="badge bg-secondary text-decoration-none px-3 py-2 rounded-pill">Events</a>
+                            <a href="{{ route('public.members.index') ?? '#' }}" class="badge bg-secondary text-decoration-none px-3 py-2 rounded-pill">Members</a>
+                            <a href="{{ route('public.notices.index') }}" class="badge bg-secondary text-decoration-none px-3 py-2 rounded-pill">Notices</a>
+                            <a href="{{ route('donate') }}" class="badge bg-secondary text-decoration-none px-3 py-2 rounded-pill">Donate</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
