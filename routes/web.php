@@ -48,6 +48,10 @@ Route::get('/activities/{activity}', [App\Http\Controllers\Admin\ActivityControl
 Route::get('/members', [App\Http\Controllers\Frontend\MemberController::class, 'index'])->name('public.members.index');
 Route::get('/members/{member}', [App\Http\Controllers\Frontend\MemberController::class, 'show'])->name('public.members.show');
 
+// Public Committee
+Route::get('/committee', [App\Http\Controllers\Frontend\CommitteeController::class, 'index'])->name('public.committee.index');
+Route::get('/committee/{id}', [App\Http\Controllers\Frontend\CommitteeController::class, 'show'])->name('public.committee.show');
+
 // QR Verification
 Route::get('/verify/member/{code}', [App\Http\Controllers\QRVerificationController::class, 'verify'])->name('verify.member');
 Route::get('/verify/payment/{receiptNumber}', [App\Http\Controllers\QRVerificationController::class, 'paymentVerify'])->name('verify.payment');

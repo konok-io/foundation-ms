@@ -454,7 +454,7 @@
                                         <div class="title">Chairman Message</div>
                                         <div class="desc">Leadership vision</div>
                                     </a>
-                                    <a href="#" class="mega-menu-item">
+                                    <a href="{{ route('public.committee.index') }}" class="mega-menu-item">
                                         <div class="icon"><i class="bi bi-people"></i></div>
                                         <div class="title">Executive Committee</div>
                                         <div class="desc">Meet our team</div>
