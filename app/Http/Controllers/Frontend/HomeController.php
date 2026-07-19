@@ -60,7 +60,7 @@ class HomeController extends Controller
             'aboutPage' => $aboutPage,
         ];
 
-        return view('frontend.home.index', $data);
+        return view('frontend.home.premium', $data);
     }
 
     public function about()
