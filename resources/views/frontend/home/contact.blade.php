@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.premium')
 
 @section('content')
 <div class="bg-primary text-white py-5">
