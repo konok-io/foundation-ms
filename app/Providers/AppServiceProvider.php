@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\GeneralSetting;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Pagination\Paginator;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Use Bootstrap 5 pagination style
+        Paginator::useBootstrapFive();
+
         // Share GeneralSetting with all views
         try {
             if (\Illuminate\Support\Facades\Schema::hasTable('general_settings')) {
