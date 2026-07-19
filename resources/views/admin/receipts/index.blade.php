@@ -6,6 +6,11 @@
 @endsection
 
 @section('page_actions')
+@can('receipts.create')
+<a href="{{ route('admin.receipts.create') }}" class="btn btn-primary">
+    <i class="bi bi-plus-lg me-2"></i>Create Receipt
+</a>
+@endcan
 @can('receipts.export')
 <a href="{{ route('admin.receipts.export') }}" class="btn btn-outline-success">
     <i class="bi bi-download me-2"></i>Export CSV

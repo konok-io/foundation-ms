@@ -6,6 +6,11 @@
 @endsection
 
 @section('page_actions')
+@can('payments.create')
+<a href="{{ route('admin.payments.create') }}" class="btn btn-primary">
+    <i class="bi bi-plus-lg me-2"></i>Create Payment
+</a>
+@endcan
 @can('payments.export')
 <a href="{{ route('admin.payments.export') }}" class="btn btn-outline-success">
     <i class="bi bi-download me-2"></i>Export CSV
