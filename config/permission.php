@@ -28,4 +28,9 @@ return [
     ],
     'created_at' => null,
     'updated_at' => null,
+
+    'cache' => [
+        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
+        'store' => 'array',
+    ],
 ];
