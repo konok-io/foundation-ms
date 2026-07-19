@@ -65,7 +65,7 @@ class DashboardController extends Controller
             'total_emergency_collected' => EmergencyCollection::whereBetween('created_at', [$yearStart, $today])->sum('collected_amount'),
             
             'total_donations' => Donation::whereBetween('created_at', [$yearStart, $today])->where('status', 'completed')->sum('amount'),
-            'total_donors' => Donation::whereBetween('created_at', [$yearStart, $today])->distinct('donor_email')->count('donor_email'),
+            'total_donors' => Donation::whereBetween('created_at', [$yearStart, $today])->distinct('email')->count('email'),
             
             'total_events' => Event::count(),
             'upcoming_events' => Event::upcoming()->count(),
