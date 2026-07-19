@@ -67,7 +67,8 @@ class ContributionController extends Controller
         
         $paidCount = $yearContributions->where('status', 'paid')->count();
         $pendingCount = $yearContributions->where('status', 'pending')->count();
-        $overdueCount = $yearContributions->overdue()->count();
+        $overdueQuery = MonthlyContribution::where('year', $year)->overdue();
+        $overdueCount = $overdueQuery->count();
 
         return [
             'total_members' => $totalMembers,

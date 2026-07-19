@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('ledger', function (Blueprint $table) {
+        Schema::create('ledgers', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->string('voucher_no')->nullable();
@@ -33,6 +33,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('ledger');
+        Schema::dropIfExists('ledgers');
     }
 };
