@@ -14,18 +14,6 @@
         </button>
     </div>
     
-    <div class="user-profile">
-        <div class="user-profile-inner">
-            <div class="user-avatar">
-                {{ substr(Auth::user()->name, 0, 1) }}
-            </div>
-            <div class="user-info">
-                <p class="user-name">{{ Auth::user()->name }}</p>
-                <p class="user-role">{{ Auth::user()->roles->first()->name ?? 'Admin' }}</p>
-            </div>
-        </div>
-    </div>
-    
     <nav class="sidebar-nav">
         <div class="sidebar-section">
             <div class="nav-item">
