@@ -268,7 +268,7 @@ class ReportController extends Controller
     {
         $this->authorize('reports.view');
 
-        $members = Member::where('membership_status', 'active')->with('contributions')->get();
+        $members = Member::where('status', true)->with('contributions')->get();
 
         $membersWithDue = $members->map(function ($member) {
             $dueContributions = $member->contributions->filter(function ($c) {

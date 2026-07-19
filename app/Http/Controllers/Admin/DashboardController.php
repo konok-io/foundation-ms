@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
-use App\Models\MonthlyDue;
+use App\Models\MonthlyContribution;
 use App\Models\EmergencyCollection;
 use App\Models\Donation;
 use App\Models\Payment;
@@ -57,14 +57,14 @@ class DashboardController extends Controller
             'new_members_this_month' => Member::whereBetween('created_at', [$monthStart, $monthEnd])->count(),
             'new_members_this_year' => Member::whereBetween('created_at', [$yearStart, $today])->count(),
             
-            'total_monthly_due' => MonthlyDue::whereBetween('due_date', [$monthStart, $monthEnd])->sum('amount'),
-            'total_monthly_collected' => MonthlyDue::whereBetween('due_date', [$monthStart, $monthEnd])->where('status', 'paid')->sum('paid_amount'),
-            'total_due_pending' => MonthlyDue::whereBetween('due_date', [$monthStart, $monthEnd])->where('status', '!=', 'paid')->sum('amount'),
+            'total_monthly_due' => MonthlyContribution::whereBetween('due_date', [$monthStart, $monthEnd])->sum('amount'),
+            'total_monthly_collected' => MonthlyContribution::whereBetween('due_date', [$monthStart, $monthEnd])->where('status', 'paid')->sum('paid_amount'),
+            'total_due_pending' => MonthlyContribution::whereBetween('due_date', [$monthStart, $monthEnd])->where('status', '!=', 'paid')->sum('amount'),
             
             'total_emergency_collections' => EmergencyCollection::whereBetween('created_at', [$yearStart, $today])->sum('amount'),
             'total_emergency_collected' => EmergencyCollection::whereBetween('created_at', [$yearStart, $today])->where('status', 'completed')->sum('amount'),
             
-            'total_donations' => Donation::whereBetween('created_at', [$yearStart, $today])->where('payment_status', 'completed')->sum('amount'),
+            'total_donations' => Donation::whereBetween('created_at', [$yearStart, $today])->where('status', 'completed')->sum('amount'),
             'total_donors' => Donation::whereBetween('created_at', [$yearStart, $today])->distinct('donor_email')->count('donor_email'),
             
             'total_events' => Event::count(),
@@ -87,18 +87,18 @@ class DashboardController extends Controller
             $monthStart = $month->copy()->startOfMonth();
             $monthEnd = $month->copy()->endOfMonth();
             
-            $monthlyDues = Payment::where('payment_type', 'monthly_due')
-                ->whereBetween('payment_date', [$monthStart, $monthEnd])
+            $monthlyDues = Payment::where('type', 'monthly_contribution')
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
                 ->where('status', 'completed')
                 ->sum('amount');
             
-            $emergencyPayments = Payment::where('payment_type', 'emergency')
-                ->whereBetween('payment_date', [$monthStart, $monthEnd])
+            $emergencyPayments = Payment::where('type', 'emergency_collection')
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
                 ->where('status', 'completed')
                 ->sum('amount');
             
             $donations = Donation::whereBetween('created_at', [$monthStart, $monthEnd])
-                ->where('payment_status', 'completed')
+                ->where('status', 'completed')
                 ->sum('amount');
             
             $monthlyCollections[] = [
@@ -169,7 +169,7 @@ class DashboardController extends Controller
             });
         
         // Recent donations
-        $recentDonations = Donation::where('payment_status', 'completed')
+        $recentDonations = Donation::where('status', 'completed')
             ->latest()
             ->take(5)
             ->get()
@@ -202,7 +202,7 @@ class DashboardController extends Controller
             
             $data[] = [
                 'month' => $month->format('M'),
-                'income' => (float) Payment::whereBetween('payment_date', [$monthStart, $monthEnd])
+                'income' => (float) Payment::whereBetween('created_at', [$monthStart, $monthEnd])
                     ->where('status', 'completed')
                     ->sum('amount'),
             ];
@@ -237,10 +237,10 @@ class DashboardController extends Controller
         $monthEnd = $today->copy()->endOfMonth();
         
         return [
-            'collected' => (float) Payment::whereBetween('payment_date', [$monthStart, $monthEnd])
+            'collected' => (float) Payment::whereBetween('created_at', [$monthStart, $monthEnd])
                 ->where('status', 'completed')
                 ->sum('amount'),
-            'pending' => (float) Payment::whereBetween('payment_date', [$monthStart, $monthEnd])
+            'pending' => (float) Payment::whereBetween('created_at', [$monthStart, $monthEnd])
                 ->where('status', 'pending')
                 ->sum('amount'),
         ];
