@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Log;
 
 class PayPalService
 {
-    protected string $clientId;
-    protected string $clientSecret;
+    protected ?string $clientId = null;
+    protected ?string $clientSecret = null;
     protected string $mode;
     protected string $baseUrl;
     protected ?string $accessToken = null;
 
     public function __construct()
     {
-        $this->clientId = GeneralSetting::getSetting('paypal_client_id', config('services.paypal.client_id'));
-        $this->clientSecret = GeneralSetting::getSetting('paypal_client_secret', config('services.paypal.client_secret'));
-        $this->mode = GeneralSetting::getSetting('paypal_mode', config('services.paypal.mode', 'sandbox'));
+        $this->clientId = GeneralSetting::getSetting('paypal_client_id', config('services.paypal.client_id')) ?: null;
+        $this->clientSecret = GeneralSetting::getSetting('paypal_client_secret', config('services.paypal.client_secret')) ?: null;
+        $this->mode = GeneralSetting::getSetting('paypal_mode', config('services.paypal.mode', 'sandbox')) ?: 'sandbox';
         
         $this->baseUrl = $this->mode === 'live' 
             ? 'https://api-m.paypal.com' 
