@@ -11,7 +11,7 @@ class GeneralSettingSeeder extends Seeder
     {
         $settings = [
             // General
-            ['key' => 'site_name', 'value' => 'Foundation Management System', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'site_name', 'value' => 'Foundation MS', 'type' => 'text', 'group' => 'general'],
             ['key' => 'site_tagline', 'value' => 'Building a Better Tomorrow', 'type' => 'text', 'group' => 'general'],
             ['key' => 'site_description', 'value' => 'A comprehensive foundation management system for social welfare organizations.', 'type' => 'textarea', 'group' => 'general'],
             ['key' => 'currency', 'value' => 'SAR', 'type' => 'text', 'group' => 'general'],
