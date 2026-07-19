@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h6 class="m-0 font-weight-bold text-primary">Recent Activity</h6>
             </div>
             <div class="card-body">
-                @if($recentActivity->count() > 0)
+                @if(count($recentActivity) > 0)
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
