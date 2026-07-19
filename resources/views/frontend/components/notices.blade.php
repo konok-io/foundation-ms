@@ -22,8 +22,7 @@
         <div class="row g-4">
             @forelse($activeNotices as $index => $notice)
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
-                <div class="notice-card p-4 rounded-4 h-100" 
-                     style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; border-left: 4px solid {{ $notice->priority === 'urgent' ? 'var(--danger)' : ($notice->priority === 'high' ? 'var(--accent)' : 'var(--primary)) }};">
+                <div class="notice-card p-4 rounded-4 h-100" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s;">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div class="d-flex align-items-center gap-2">
                             @if($notice->priority === 'urgent')
@@ -36,7 +35,7 @@
                             </span>
                             @else
                             <span class="badge px-3 py-2 rounded-pill" style="background: var(--primary);">
-                                {{ ucfirst(str_replace('_', ' ', $notice->notice_type)) }}
+                                General
                             </span>
                             @endif
                         </div>
@@ -46,7 +45,7 @@
                         </small>
                     </div>
                     <h4 class="fw-bold text-white mb-3">{{ $notice->title }}</h4>
-                    <p class="text-white-50 mb-0">{{ Str::limit(strip_tags($notice->content), 150) }}</p>
+                    <p class="text-white-50 mb-0">{{ Str::limit(strip_tags($notice->content ?? ''), 150) }}</p>
                 </div>
             </div>
             @empty
