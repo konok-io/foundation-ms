@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-<section class="py-5 bg-light">
+<section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
             <h2><i class="bi bi-activity me-2"></i>Our Activities</h2>
@@ -13,7 +13,7 @@
             @foreach($activities as $activity)
             <div class="col-md-6 col-lg-4 mb-4">
                 <a href="{{ route('public.activities.show', $activity) }}" class="text-decoration-none">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card h-100 shadow-sm border-0">
                         @if($activity->image)
                         <img src="{{ asset('storage/' . $activity->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $activity->title }}">
                         @else
@@ -22,13 +22,13 @@
                         </div>
                         @endif
                         <div class="card-body">
-                            <span class="badge bg-primary mb-2">{{ $activity->type }}</span>
-                            <h5 class="card-title text-dark">{{ Str::limit($activity->title, 50) }}</h5>
-                            <p class="card-text text-muted">{{ Str::limit($activity->description, 100) }}</p>
+                            <span class="badge bg-success mb-2">{{ ucfirst(str_replace('_', ' ', $activity->activity_type)) }}</span>
+                            <h5 class="card-title fw-bold text-dark">{{ Str::limit($activity->title, 50) }}</h5>
+                            <p class="card-text text-muted">{{ Str::limit(strip_tags($activity->description), 100) }}</p>
                         </div>
-                        <div class="card-footer bg-white">
+                        <div class="card-footer bg-white border-0">
                             <div class="d-flex justify-content-between text-muted small">
-                                <span><i class="bi bi-calendar me-1"></i>{{ $activity->start_date->format('M Y') }}</span>
+                                <span><i class="bi bi-calendar me-1"></i>{{ \Carbon\Carbon::parse($activity->start_date)->format('M Y') }}</span>
                                 <span><i class="bi bi-people me-1"></i>{{ $activity->beneficiaries_count }} beneficiaries</span>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
             </div>
             @endforeach
         </div>
-        
+
         <div class="d-flex justify-content-center">
             {{ $activities->links() }}
         </div>
