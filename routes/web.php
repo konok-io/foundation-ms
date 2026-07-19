@@ -44,6 +44,10 @@ Route::get('/gallery/{album}', [App\Http\Controllers\Admin\GalleryController::cl
 Route::get('/activities', [App\Http\Controllers\Admin\ActivityController::class, 'publicIndex'])->name('public.activities.index');
 Route::get('/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'publicShow'])->name('public.activities.show');
 
+// Public Members
+Route::get('/members', [App\Http\Controllers\Frontend\MemberController::class, 'index'])->name('public.members.index');
+Route::get('/members/{member}', [App\Http\Controllers\Frontend\MemberController::class, 'show'])->name('public.members.show');
+
 // QR Verification
 Route::get('/verify/member/{code}', [App\Http\Controllers\QRVerificationController::class, 'verify'])->name('verify.member');
 Route::get('/verify/payment/{receiptNumber}', [App\Http\Controllers\QRVerificationController::class, 'paymentVerify'])->name('verify.payment');
