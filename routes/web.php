@@ -67,8 +67,15 @@ Route::get('/language/{locale}', function ($locale) {
 
 // Auth Routes
 Route::middleware('guest')->group(function () {
-    Route::get('login', [LoginController::class, 'create'])->name('login');
-    Route::post('login', [LoginController::class, 'store'])->name('login.store');
+    // Admin Login
+    Route::get('admin/login', [LoginController::class, 'create'])->name('login');
+    Route::post('admin/login', [LoginController::class, 'store'])->name('login.store');
+    
+    // Member Portal Login
+    Route::get('portal/login', [LoginController::class, 'portalLogin'])->name('member.login');
+    Route::post('portal/login', [LoginController::class, 'memberStore'])->name('member.login.store');
+    
+    // Password Reset Routes
     Route::get('forgot-password', [ForgotPasswordController::class, 'create'])->name('password.request');
     Route::post('forgot-password', [ForgotPasswordController::class, 'store'])->name('password.email');
     Route::get('reset-password/{token}', [ResetPasswordController::class, 'create'])->name('password.reset');
@@ -512,7 +519,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
 });
 
 // Member Portal Routes
-Route::prefix('member')->name('member.')->middleware('auth')->group(function () {
+Route::prefix('portal')->name('member.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Member\MemberPortalController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [App\Http\Controllers\Member\MemberPortalController::class, 'profile'])->name('profile');
     Route::put('/profile', [App\Http\Controllers\Member\MemberPortalController::class, 'profileUpdate'])->name('profile.update');

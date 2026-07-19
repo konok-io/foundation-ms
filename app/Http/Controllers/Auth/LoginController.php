@@ -12,10 +12,19 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
+    // Admin Login
     public function create(): View
     {
         return view('auth.login', [
             'title' => 'Login',
+        ]);
+    }
+
+    // Member Portal Login
+    public function portalLogin(): View
+    {
+        return view('auth.portal-login', [
+            'title' => 'Member Login',
         ]);
     }
 
@@ -47,6 +56,40 @@ class LoginController extends Controller
             Log::info('User logged in', ['user_id' => $user->id, 'ip' => $request->ip()]);
 
             return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        return back()->with('error', 'The provided credentials do not match our records.')->withInput($request->only('email'));
+    }
+
+    // Store for member portal login
+    public function memberStore(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+        $remember = $request->boolean('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            if ($user->status !== 'active') {
+                Auth::logout();
+                return back()->with('error', 'Your account is not active. Please contact administrator.');
+            }
+
+            $user->update([
+                'last_login' => now(),
+                'last_login_ip' => $request->ip(),
+            ]);
+
+            Log::info('Member logged in', ['user_id' => $user->id, 'ip' => $request->ip()]);
+
+            return redirect()->intended(route('member.dashboard'));
         }
 
         return back()->with('error', 'The provided credentials do not match our records.')->withInput($request->only('email'));
