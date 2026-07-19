@@ -26,8 +26,8 @@
     <!-- Custom CSS -->
     <style>
         :root {
-            --primary-color: {{ GeneralSetting::getSetting('primary_color', '#4F46E5') }};
-            --secondary-color: {{ GeneralSetting::getSetting('secondary_color', '#10B981') }};
+            --primary-color: {{ settings('primary_color', '#4F46E5') }};
+            --secondary-color: {{ settings('secondary_color', '#10B981') }};
         }
         
         body {
