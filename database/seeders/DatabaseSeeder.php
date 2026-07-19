@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
             CmsPageSeeder::class,
             MemberSeeder::class,
             ContributionSeeder::class,
+            EventSeeder::class,
+            NoticeSeeder::class,
+            ActivitySeeder::class,
+            AlbumSeeder::class,
         ]);
     }
 }
