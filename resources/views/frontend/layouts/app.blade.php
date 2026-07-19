@@ -50,10 +50,22 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">About Us</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('about') }}">About</a></li>
-                            <li><a class="dropdown-item" href="{{ route('about') }}">Mission & Vision</a></li>
-                            <li><a class="dropdown-item" href="{{ route('about') }}">Our History</a></li>
-                            <li><a class="dropdown-item" href="{{ route('about') }}">Chairman Message</a></li>
+                            <li><a class="dropdown-item" href="{{ route('frontend.page', 'mission-vision') }}">Mission & Vision</a></li>
+                            <li><a class="dropdown-item" href="{{ route('frontend.page', 'history') }}">Our History</a></li>
+                            <li><a class="dropdown-item" href="{{ route('frontend.page', 'chairman-message') }}">Chairman Message</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('public.events.index') ? 'active' : '' }}" href="{{ route('public.events.index') }}">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('public.notices.index') ? 'active' : '' }}" href="{{ route('public.notices.index') }}">Notices</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('public.gallery.index') ? 'active' : '' }}" href="{{ route('public.gallery.index') }}">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('public.activities.index') ? 'active' : '' }}" href="{{ route('public.activities.index') }}">Activities</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
