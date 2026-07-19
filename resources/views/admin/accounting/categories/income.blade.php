@@ -1,7 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.incomes.index') }}">Accounting</a></li><li class="breadcrumb-item active">Income Categories</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.incomes.index') }}">Accounting</a></li>
+<li class="breadcrumb-item active">Income Categories</li>
+@endsection
 
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">

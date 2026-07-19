@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item active">Events</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item active">Events</li>
+@endsection
 
 @section('page_actions')
 @can('events.create')

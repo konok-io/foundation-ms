@@ -1,7 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.reports.index') }}">Reports</a></li><li class="breadcrumb-item active">Monthly Report</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.reports.index') }}">Reports</a></li>
+<li class="breadcrumb-item active">Monthly Report</li>
+@endsection
 
 @section('page_actions')
 <a href="{{ route('admin.reports.monthly', ['year' => $year, 'month' => $month, 'pdf' => true]) }}" class="btn btn-outline-danger">

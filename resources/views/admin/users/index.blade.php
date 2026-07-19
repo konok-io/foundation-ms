@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
+@endsection
 
 @can('users.create')
 @section('page_actions')

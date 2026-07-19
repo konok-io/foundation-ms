@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.settings.index') }}">Settings</a></li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.settings.index') }}">Settings</a></li>
+@endsection
 
 <div class="row">
     <div class="col-md-3">

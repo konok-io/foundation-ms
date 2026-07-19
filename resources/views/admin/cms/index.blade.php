@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.cms.index') }}">CMS</a></li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.cms.index') }}">CMS</a></li>
+@endsection
 
 @section('page_actions')
 <a href="{{ route('admin.cms.create') }}" class="btn btn-primary">

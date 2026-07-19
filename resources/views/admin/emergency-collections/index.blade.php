@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.emergency-collections.index') }}">Emergency Collections</a></li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.emergency-collections.index') }}">Emergency Collections</a></li>
+@endsection
 
 @section('page_actions')
 @can('emergency_collections.create')

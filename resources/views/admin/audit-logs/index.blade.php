@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item active">Audit Logs</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item active">Audit Logs</li>
+@endsection
 
 @section('page_actions')
 @can('audit-logs.view')

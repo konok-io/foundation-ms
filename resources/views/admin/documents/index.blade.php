@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item active">Documents</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item active">Documents</li>
+@endsection
 
 <div class="card">
     <div class="card-header">

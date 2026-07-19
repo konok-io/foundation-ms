@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item active">Notices</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item active">Notices</li>
+@endsection
 
 @section('page_actions')
 @can('notices.create')

@@ -1,7 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.expenses.index') }}">Accounting</a></li><li class="breadcrumb-item active">Expense</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.expenses.index') }}">Accounting</a></li>
+<li class="breadcrumb-item active">Expense</li>
+@endsection
 
 @section('page_actions')
 @can('expenses.create')

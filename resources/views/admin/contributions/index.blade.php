@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.contributions.index') }}">Contributions</a></li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.contributions.index') }}">Contributions</a></li>
+@endsection
 
 @section('page_actions')
 <div class="btn-group">

@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item active">Blood Donors</li>')
+@section('breadcrumb')
+<li class="breadcrumb-item active">Blood Donors</li>
+@endsection
 
 <div class="row mb-4">
     <div class="col-md-3">

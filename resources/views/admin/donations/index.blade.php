@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.donations.index') }}">Donations</a></li>')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.donations.index') }}">Donations</a></li>
+@endsection
 
 @section('page_actions')
 @can('donations.create')
