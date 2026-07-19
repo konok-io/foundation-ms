@@ -118,7 +118,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin Routes
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
