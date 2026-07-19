@@ -17,6 +17,18 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
+    public function index()
+    {
+        $this->authorize('reports.view');
+        
+        $data = [
+            'title' => 'Reports',
+            'page_title' => 'Reports',
+        ];
+        
+        return view('admin.reports.index', $data);
+    }
+
     public function dailyReport(Request $request)
     {
         $this->authorize('reports.view');

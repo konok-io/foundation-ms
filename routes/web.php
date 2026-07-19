@@ -250,6 +250,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('/ledger/export', [LedgerController::class, 'export'])->name('ledger.export');
 
     // Reports
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/daily', [ReportController::class, 'dailyReport'])->name('reports.daily');
     Route::get('/reports/monthly', [ReportController::class, 'monthlyReport'])->name('reports.monthly');
     Route::get('/reports/yearly', [ReportController::class, 'yearlyReport'])->name('reports.yearly');
