@@ -192,6 +192,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::put('/payments/{payment}', [PaymentController::class, 'update'])->name('payments.update');
     Route::delete('/payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
     Route::post('/payments/{payment}/refund', [PaymentController::class, 'refund'])->name('payments.refund');
+    Route::get('/payments/export', [PaymentController::class, 'export'])->name('payments.export');
 
     // Donations
     Route::get('/donations', [DonationController::class, 'index'])->name('donations.index');
