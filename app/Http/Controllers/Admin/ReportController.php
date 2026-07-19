@@ -202,12 +202,13 @@ class ReportController extends Controller
 
         $stats = [];
         foreach ($collections as $collection) {
+            $totalAssigned = $collection->payments->count();
             $stats[$collection->id] = [
-                'total' => $collection->amount * $collection->activeMembersCount(),
+                'total' => $collection->target_amount,
                 'collected' => $collection->payments->sum('paid_amount'),
-                'due' => ($collection->amount * $collection->activeMembersCount()) - $collection->payments->sum('paid_amount'),
+                'due' => $collection->target_amount - $collection->payments->sum('paid_amount'),
                 'paid_count' => $collection->payments->where('status', 'paid')->count(),
-                'unpaid_count' => $collection->activeMembersCount() - $collection->payments->where('status', 'paid')->count(),
+                'unpaid_count' => $totalAssigned - $collection->payments->where('status', 'paid')->count(),
             ];
         }
 

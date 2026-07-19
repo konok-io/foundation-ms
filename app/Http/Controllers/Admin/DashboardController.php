@@ -61,8 +61,8 @@ class DashboardController extends Controller
             'total_monthly_collected' => MonthlyContribution::whereBetween('due_date', [$monthStart, $monthEnd])->where('status', 'paid')->sum('paid_amount'),
             'total_due_pending' => MonthlyContribution::whereBetween('due_date', [$monthStart, $monthEnd])->where('status', '!=', 'paid')->sum('amount'),
             
-            'total_emergency_collections' => EmergencyCollection::whereBetween('created_at', [$yearStart, $today])->sum('amount'),
-            'total_emergency_collected' => EmergencyCollection::whereBetween('created_at', [$yearStart, $today])->where('status', 'completed')->sum('amount'),
+            'total_emergency_collections' => EmergencyCollection::whereBetween('created_at', [$yearStart, $today])->sum('target_amount'),
+            'total_emergency_collected' => EmergencyCollection::whereBetween('created_at', [$yearStart, $today])->sum('collected_amount'),
             
             'total_donations' => Donation::whereBetween('created_at', [$yearStart, $today])->where('status', 'completed')->sum('amount'),
             'total_donors' => Donation::whereBetween('created_at', [$yearStart, $today])->distinct('donor_email')->count('donor_email'),
