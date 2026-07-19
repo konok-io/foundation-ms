@@ -30,6 +30,7 @@ return [
     'updated_at' => null,
 
     'cache' => [
+        'key' => 'spatie.permission.cache',
         'expiration_time' => \DateInterval::createFromDateString('0 seconds'),
         'store' => 'array',
     ],
