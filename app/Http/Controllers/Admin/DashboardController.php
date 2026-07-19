@@ -145,12 +145,13 @@ class DashboardController extends Controller
             ->take(5)
             ->get()
             ->map(function ($payment) {
-                return [
+                return (object)[
                     'type' => 'payment',
                     'icon' => 'bi-cash-stack',
                     'color' => 'success',
                     'message' => ($payment->member?->name ?? 'Unknown') . ' paid ' . number_format($payment->amount, 2) . ' SAR',
                     'time' => $payment->created_at->diffForHumans(),
+                    'created_at' => $payment->created_at,
                 ];
             });
         
@@ -159,12 +160,13 @@ class DashboardController extends Controller
             ->take(5)
             ->get()
             ->map(function ($member) {
-                return [
+                return (object)[
                     'type' => 'member',
                     'icon' => 'bi-person-plus',
                     'color' => 'primary',
                     'message' => 'New member: ' . $member->name,
                     'time' => $member->created_at->diffForHumans(),
+                    'created_at' => $member->created_at,
                 ];
             });
         
@@ -174,20 +176,23 @@ class DashboardController extends Controller
             ->take(5)
             ->get()
             ->map(function ($donation) {
-                return [
+                return (object)[
                     'type' => 'donation',
                     'icon' => 'bi-heart',
                     'color' => 'danger',
                     'message' => $donation->donor_name . ' donated ' . number_format($donation->amount, 2) . ' SAR',
                     'time' => $donation->created_at->diffForHumans(),
+                    'created_at' => $donation->created_at,
                 ];
             });
 
-        return $recentPayments->merge($recentMembers)
+        $allActivities = $recentPayments->merge($recentMembers)
             ->merge($recentDonations)
-            ->sortByDesc('time')
+            ->sortByDesc('created_at')
             ->take(10)
             ->values();
+
+        return $allActivities;
     }
 
     protected function getMonthlyTrend()
