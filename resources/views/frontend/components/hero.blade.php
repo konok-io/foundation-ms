@@ -41,11 +41,11 @@
                     </span>
                     
                     <h1 class="display-3 fw-bold mb-4" style="line-height: 1.2;">
-                        {{ $settings['site_name'] ?? 'Foundation Management System' }}
+                        {{ $settings['site_name'] ?? 'Bangladesh Welfare Foundation' }}
                     </h1>
                     
                     <p class="lead mb-5 opacity-75" style="max-width: 600px; font-size: 1.25rem;">
-                        {{ $settings['site_tagline'] ?? 'Building a Better Tomorrow Through Compassion and Service' }}
+                        {{ $settings['site_tagline'] ?? 'Serving Humanity, Building Hope' }}
                     </p>
 
                     <!-- Impact Stats -->

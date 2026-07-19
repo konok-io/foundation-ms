@@ -415,8 +415,8 @@
                         <i class="bi bi-heart-pulse-fill"></i>
                     </div>
                     <div>
-                        <div class="brand-text">{{ $siteSettings['site_name'] ?? 'Foundation MS' }}</div>
-                        <div class="brand-tagline">{{ $siteSettings['site_tagline'] ?? 'Building a Better Tomorrow' }}</div>
+                        <div class="brand-text">{{ $siteSettings['site_name'] ?? 'Bangladesh Welfare Foundation' }}</div>
+                        <div class="brand-tagline">{{ $siteSettings['site_tagline'] ?? 'Serving Humanity, Building Hope' }}</div>
                     </div>
                 </a>
 
