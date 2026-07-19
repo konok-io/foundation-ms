@@ -21,11 +21,11 @@
     </div>
     
     <div class="topbar-right">
+        @php
+            $unreadNotifications = \App\Models\MemberNotification::where('is_read', false)->count();
+        @endphp
         <a href="{{ route('admin.notifications.index') }}" class="topbar-btn" title="Notifications">
             <i class="bi bi-bell"></i>
-            @php
-                $unreadNotifications = Auth::user() ? Auth::user()->unreadNotifications()->count() : 0;
-            @endphp
             @if($unreadNotifications > 0)
             <span class="badge">{{ $unreadNotifications > 99 ? '99+' : $unreadNotifications }}</span>
             @endif
