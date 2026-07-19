@@ -265,6 +265,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('/reports/emergency-fund', [ReportController::class, 'emergencyFundReport'])->name('reports.emergency-fund');
     Route::get('/reports/donation', [ReportController::class, 'donationReport'])->name('reports.donation');
     Route::get('/reports/outstanding-due', [ReportController::class, 'outstandingDueReport'])->name('reports.outstanding-due');
+    Route::get('/reports/income-statement', [ReportController::class, 'incomeStatement'])->name('reports.income-statement');
 
     // Blood Donors
     Route::get('/blood-donors', [BloodDonorController::class, 'index'])->name('blood-donors.index');

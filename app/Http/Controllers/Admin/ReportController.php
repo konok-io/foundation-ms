@@ -381,3 +381,38 @@ class ReportController extends Controller
         return $pdf->download('Outstanding-Due-Report.pdf');
     }
 }
+
+    public function incomeStatement(Request $request)
+    {
+        $this->authorize('reports.view');
+
+        $startDate = $request->start_date ?? date('Y-01-01');
+        $endDate = $request->end_date ?? date('Y-m-d');
+
+        $incomes = Income::whereBetween('date', [$startDate, $endDate])->with('category')->get();
+        $expenses = Expense::whereBetween('date', [$startDate, $endDate])->with('category')->get();
+
+        $incomeByCategory = $incomes->groupBy('category.name')->map->sum('amount');
+        $expenseByCategory = $expenses->groupBy('category.name')->map->sum('amount');
+
+        $totalIncome = $incomes->sum('amount');
+        $totalExpense = $expenses->sum('amount');
+        $netIncome = $totalIncome - $totalExpense;
+
+        $data = [
+            'title' => 'Income Statement',
+            'page_title' => 'Income Statement Report',
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'incomes' => $incomes,
+            'expenses' => $expenses,
+            'incomeByCategory' => $incomeByCategory,
+            'expenseByCategory' => $expenseByCategory,
+            'totalIncome' => $totalIncome,
+            'totalExpense' => $totalExpense,
+            'netIncome' => $netIncome,
+        ];
+
+        return view('admin.accounting.reports.income-statement', $data);
+    }
+}
