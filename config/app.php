@@ -16,6 +16,10 @@ return [
         'driver' => 'file',
     ],
     'providers' => [
+        // CRITICAL: Our custom Spatie provider MUST come before AppServiceProvider
+        // This ensures cache.store is set to 'array' before Spatie loads
+        App\Providers\SpatiePermissionServiceProvider::class,
+        
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -42,7 +46,9 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
+        
+        // NOTE: Spatie Permission is now registered by SpatiePermissionServiceProvider
+        // If you need it here for some reason, it should come AFTER our custom provider
     ],
     'aliases' => Illuminate\Support\Facades\Facade::defaultAliases()->merge([
     ])->toArray(),

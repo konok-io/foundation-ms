@@ -2,8 +2,14 @@
 
 use Illuminate\Support\Str;
 
+// IMPORTANT: Force array cache for Spatie Permission to avoid database table requirement
+// This MUST be set before any cache operations
+if (!defined('CACHE_STORE_OVERRIDE')) {
+    define('CACHE_STORE_OVERRIDE', 'array');
+}
+
 return [
-    'default' => env('CACHE_STORE', 'file'),
+    'default' => env('CACHE_STORE', env('CACHE_DRIVER', 'file')),
 
     'stores' => [
         'array' => [
