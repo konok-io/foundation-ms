@@ -254,7 +254,7 @@
 <div class="modal fade" id="generateModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('admin.contributions.generate') }}" method="POST">
+            <form action="{{ route('admin.contributions.generate-monthly') }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title">Generate Monthly Contributions</h5>
