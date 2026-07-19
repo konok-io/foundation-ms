@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="#">Accounting</a></li><li class="breadcrumb-item active">Income Statement</li>')
+@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.incomes.index') }}">Accounting</a></li><li class="breadcrumb-item active">Income Statement</li>')
 
 @section('page_actions')
 <a href="{{ route('admin.ledger.index') }}" class="btn btn-outline-secondary">

@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="#">Roles</a></li>')
+@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.roles.index') }}">Roles</a></li>')
 
 @can('roles.create')
 @section('page_actions')

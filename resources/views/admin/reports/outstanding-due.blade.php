@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="#">Reports</a></li><li class="breadcrumb-item active">Outstanding Due</li>')
+@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.reports.index') }}">Reports</a></li><li class="breadcrumb-item active">Outstanding Due</li>')
 
 @section('page_actions')
 <a href="{{ route('admin.reports.outstanding-due', ['pdf' => true]) }}" class="btn btn-outline-danger">

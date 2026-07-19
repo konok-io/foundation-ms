@@ -87,6 +87,11 @@ class Donation extends Model
         return $query->where('status', 'completed');
     }
 
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
     public function scopeForPurpose($query, $purpose)
     {
         return $query->where('purpose', $purpose);

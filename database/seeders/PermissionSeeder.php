@@ -105,6 +105,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'settings.update', 'group_name' => 'Settings', 'description' => 'Update settings'],
             ['name' => 'settings.edit', 'group_name' => 'Settings', 'description' => 'Edit settings'],
             ['name' => 'settings.cms', 'group_name' => 'Settings', 'description' => 'Manage CMS'],
+            ['name' => 'settings.payment', 'group_name' => 'Settings', 'description' => 'Manage payment settings'],
             
             // Blood Donors
             ['name' => 'blood_donors.view', 'group_name' => 'Blood Donors', 'description' => 'View blood donors'],

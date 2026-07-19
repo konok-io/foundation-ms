@@ -21,18 +21,23 @@
     </div>
     
     <div class="topbar-right">
-        <button class="topbar-btn" title="Notifications">
+        <a href="{{ route('admin.notifications.index') }}" class="topbar-btn" title="Notifications">
             <i class="bi bi-bell"></i>
-            <span class="badge">3</span>
-        </button>
-        <button class="topbar-btn" title="Messages">
+            @php
+                $unreadNotifications = Auth::user() ? Auth::user()->unreadNotifications()->count() : 0;
+            @endphp
+            @if($unreadNotifications > 0)
+            <span class="badge">{{ $unreadNotifications > 99 ? '99+' : $unreadNotifications }}</span>
+            @endif
+        </a>
+        <a href="{{ route('admin.notifications.index') }}" class="topbar-btn" title="Messages">
             <i class="bi bi-chat-dots"></i>
-        </button>
+        </a>
         <a href="{{ route('admin.profile') }}" class="topbar-profile">
             <img src="{{ Auth::user()->avatar_url ?? asset('images/avatar.png') }}" alt="Profile">
             <div class="topbar-profile-info">
                 <h6>{{ Auth::user()->name }}</h6>
-                <small>Admin</small>
+                <small>{{ Auth::user()->roles->first()->name ?? 'Admin' }}</small>
             </div>
         </a>
     </div>

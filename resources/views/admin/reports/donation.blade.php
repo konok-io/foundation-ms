@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="#">Reports</a></li><li class="breadcrumb-item active">Donation</li>')
+@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.reports.index') }}">Reports</a></li><li class="breadcrumb-item active">Donation</li>')
 
 @section('page_actions')
 <a href="{{ route('admin.reports.donation', ['date_from' => $dateFrom, 'date_to' => $dateTo, 'purpose' => request('purpose'), 'pdf' => true]) }}" class="btn btn-outline-danger">

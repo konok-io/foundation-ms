@@ -15,17 +15,24 @@ use Stripe\Webhook;
 
 class StripeService
 {
-    protected string $secretKey;
-    protected string $webhookSecret;
+    protected ?string $secretKey;
+    protected ?string $webhookSecret;
     protected string $currency;
 
     public function __construct()
     {
-        $this->secretKey = GeneralSetting::getSetting('stripe_secret_key', config('services.stripe.secret'));
-        $this->webhookSecret = GeneralSetting::getSetting('stripe_webhook_secret', config('services.stripe.webhook_secret'));
+        $this->secretKey = GeneralSetting::getSetting('stripe_secret_key') ?? config('services.stripe.secret');
+        $this->webhookSecret = GeneralSetting::getSetting('stripe_webhook_secret') ?? config('services.stripe.webhook_secret');
         $this->currency = GeneralSetting::getSetting('stripe_currency', 'SAR');
 
-        Stripe::setApiKey($this->secretKey);
+        if ($this->secretKey) {
+            Stripe::setApiKey($this->secretKey);
+        }
+    }
+
+    public function isConfigured(): bool
+    {
+        return !empty($this->secretKey);
     }
 
     public function createCheckoutSession(Payment $payment, string $returnUrl, string $cancelUrl): array

@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="#">Receipts</a></li>')
+@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.receipts.index') }}">Receipts</a></li>')
 
 @section('page_actions')
 @can('receipts.export')

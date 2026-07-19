@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-@yield('breadcrumb', '<li class="breadcrumb-item"><a href="#">Payments</a></li>')
+@yield('breadcrumb', '<li class="breadcrumb-item"><a href="{{ route('admin.payments.index') }}">Payments</a></li>')
 
 @section('page_actions')
 @can('payments.export')

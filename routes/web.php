@@ -205,10 +205,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
     // Receipts
     Route::get('/receipts', [ReceiptController::class, 'index'])->name('receipts.index');
+    Route::get('/receipts/create', [ReceiptController::class, 'create'])->name('receipts.create');
+    Route::post('/receipts', [ReceiptController::class, 'store'])->name('receipts.store');
     Route::get('/receipts/{receipt}', [ReceiptController::class, 'show'])->name('receipts.show');
+    Route::get('/receipts/{receipt}/edit', [ReceiptController::class, 'edit'])->name('receipts.edit');
+    Route::put('/receipts/{receipt}', [ReceiptController::class, 'update'])->name('receipts.update');
+    Route::delete('/receipts/{receipt}', [ReceiptController::class, 'destroy'])->name('receipts.destroy');
     Route::get('/receipts/{receipt}/download', [ReceiptController::class, 'download'])->name('receipts.download');
     Route::get('/receipts/{receipt}/print', [ReceiptController::class, 'print'])->name('receipts.print');
     Route::get('/receipts/{receipt}/email', [ReceiptController::class, 'email'])->name('receipts.email');
+    Route::get('/receipts/export', [ReceiptController::class, 'export'])->name('receipts.export');
     Route::get('/receipts/verify/{receipt_no}', [ReceiptController::class, 'verify'])->name('receipts.verify');
 
     // Income Categories
@@ -312,6 +318,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('/cms', [CmsController::class, 'index'])->name('cms.index');
     Route::get('/cms/create', [CmsController::class, 'create'])->name('cms.create');
     Route::post('/cms', [CmsController::class, 'store'])->name('cms.store');
+    Route::get('/cms/{page}', [CmsController::class, 'show'])->name('cms.show');
     Route::get('/cms/{page}/edit', [CmsController::class, 'edit'])->name('cms.edit');
     Route::put('/cms/{page}', [CmsController::class, 'update'])->name('cms.update');
     Route::delete('/cms/{page}', [CmsController::class, 'destroy'])->name('cms.destroy');
